@@ -5,5 +5,20 @@ CREATE TABLE appointments (
     nextVisit timestamp default now()
 );
 
+CREATE TABLE users (
+    id serial primary key,
+    name varchar(255) not null,
+    email varchar(255),
+    username varchar(255) unique
+);
+
+//examples
 INSERT INTO appointments(description, lastVisit, nextVisit)
 VALUES ('test', now(), now());
+
+INSERT INTO users(name, email, username)
+VALUES ('Andrea', 'garden@gmail.com', 'garden');
+
+//notes
+When you fail to insert a record (let's say you entered a duplicate for a unique required field) the id (sequence)
+updates anyways, so you will have a gap in assigned id's
