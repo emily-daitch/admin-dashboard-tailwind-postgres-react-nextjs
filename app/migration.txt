@@ -1,0 +1,9 @@
+CREATE TABLE appointments (
+    id serial primary key,
+    description varchar(255) not null,
+    lastVisit timestamp default now(),
+    nextVisit timestamp default now()
+);
+
+INSERT INTO appointments(description, lastVisit, nextVisit)
+VALUES ('test', now(), now());

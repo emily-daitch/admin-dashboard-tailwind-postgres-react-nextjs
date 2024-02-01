@@ -16,6 +16,7 @@ interface Appointment {
 }
 
 export default function AppointmentTable({ appointments }: { appointments: Appointment[] }) {
+  console.log('appointments', appointments);
   return (
     <Table>
       <TableHead>
@@ -30,10 +31,10 @@ export default function AppointmentTable({ appointments }: { appointments: Appoi
           <TableRow key={appointment.id}>
             <TableCell>{appointment.description}</TableCell>
             <TableCell>
-              <Text>{appointment.lastVisit.toDateString()}</Text>
+              <Text>{appointment.lastVisit?.toDateString()}</Text>
             </TableCell>
             <TableCell>
-              <Text>{appointment.nextVisit.toDateString()}</Text>
+              <Text>{appointment.nextVisit?.toDateString()}</Text>
             </TableCell>
           </TableRow>
         ))}
