@@ -192,6 +192,7 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
                 color: 'primary.main',
               }}
               onClick={handleSaveClick(id)}
+              key="save"
             />,
             <GridActionsCellItem
               icon={<CancelIcon />}
@@ -199,6 +200,7 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
               className="textPrimary"
               onClick={handleCancelClick(id)}
               color="inherit"
+              key="cancel"
             />,
           ];
         }
@@ -210,12 +212,14 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
             className="textPrimary"
             onClick={handleEditClick(id)}
             color="inherit"
+            key="edit"
           />,
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
             onClick={handleDeleteClick(id)}
             color="inherit"
+            key="delete"
           />,
         ];
       },
