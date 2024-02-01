@@ -1,11 +1,21 @@
 'use client'
 import * as React from 'react';
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowsProp, GridValidRowModel } from '@mui/x-data-grid';
+
+function updateDBRow(updateRow: GridValidRowModel) {
+    console.log('udating db placeholder running');
+    return true;
+}
 
 export default function BasicEditingGrid() {
   return (
     <div style={{ height: 300, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} />
+      <DataGrid rows={rows} columns={columns}
+        processRowUpdate={(updatedRow, originalRow) =>
+            {    if (updateDBRow(updatedRow)) return updatedRow;
+                 else return originalRow;
+            }
+          } />
     </div>
   );
 }
