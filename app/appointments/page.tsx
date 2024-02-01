@@ -2,6 +2,7 @@ import { sql } from '@vercel/postgres';
 import { Card, Title, Text } from '@tremor/react';
 import Search from '../search';
 import AppointmentTable from '../aptTable';
+import BasicEditingGrid from '../editGrid';
 
 interface Appointment {
   id: number;
@@ -30,6 +31,7 @@ export default async function IndexPage({
       <Search />
       <Card className="mt-6">
         <AppointmentTable appointments={appointments} />
+        <BasicEditingGrid></BasicEditingGrid>
       </Card>
     </main>
   );
