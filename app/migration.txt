@@ -13,8 +13,8 @@ CREATE TABLE users (
 );
 
 CREATE TABLE dailytask (
-    taskorder serial primary key,
-    id uuid default gen_random_uuid(),
+    id uuid primary key default gen_random_uuid() unique not null,
+    taskorder integer not null unique,
     title varchar(255) not null,
     description varchar(255),
     username varchar(255) not null
@@ -31,11 +31,19 @@ CREATE TABLE dailyLog (
 );
 
 //examples
+truncate table tablename -- to remove all rows and keep the table
+
 INSERT INTO appointments(description, lastVisit, nextVisit)
 VALUES ('test', now(), now());
 
 INSERT INTO users(name, email, username)
 VALUES ('Andrea', 'garden@gmail.com', 'garden');
+
+INSERT INTO dailytask(taskorder, title, description, username)
+VALUES (0, 'Task', 'Task Description', 'edaitch');
+
+INSERT INTO dailylog(taskid, title, description, username)
+VALUES ('346328-3247832...', 'Task', 'Task Description', 'edaitch');
 
 //notes
 When you fail to insert a record (let's say you entered a duplicate for a unique required field) the id (sequence)
