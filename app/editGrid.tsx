@@ -88,9 +88,9 @@ function EditToolbar(props: EditToolbarProps) {
 
 export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
     console.log('users from crud grid', users);
-    const initialRows: GridRowsProp | null= users;
+    const initialRows: GridRowsProp= users;
 
-    const [rows, setRows] = React.useState<GridRowsProp | null>(initialRows);
+    const [rows, setRows] = React.useState<GridRowsProp>(initialRows);
 
     React.useEffect(() => {
         setRows(initialRows);
@@ -136,7 +136,7 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
   };
 
   const handleDeleteClick = (id: GridRowId) => () => {
-    setRows(rows.filter((row) => row.id !== id));
+        setRows(rows.filter((row) => row.id !== id));
   };
 
   const handleCancelClick = (id: GridRowId) => () => {
@@ -147,7 +147,7 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
 
     const editedRow = rows.find((row) => row.id === id);
     if (editedRow!.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
+          setRows(rows.filter((row) => row.id !== id));
     }
   };
 

@@ -10,10 +10,10 @@ interface DailyLog {
 
 export default async function DailyPage() {
   const result = await sql`
-    SELECT id, uuid, done
+    SELECT id, taskid, done
     FROM dailylog 
-    WHERE username ILIKE  edaitch
-    AND   day      EQUALS CURRENT_DAY;
+    WHERE username ILIKE  'edaitch'
+    AND   day      =      now()::date;
   `;
   const dailyLogs = result.rows as DailyLog[];
 
