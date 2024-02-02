@@ -87,7 +87,14 @@ function EditToolbar(props: EditToolbarProps) {
 }
 
 export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
-    const initialRows: GridRowsProp = users;
+    console.log('users from crud grid', users);
+    const initialRows: GridRowsProp | null= users;
+
+    const [rows, setRows] = React.useState<GridRowsProp | null>(initialRows);
+
+    React.useEffect(() => {
+        setRows(initialRows);
+      }, [initialRows]);
 
     const mutateRow = useFakeMutation();
 
@@ -112,7 +119,6 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
       setSnackbar({ children: error.message, severity: 'error' });
     }, []);
 
-  const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
 
   const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {

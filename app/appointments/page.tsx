@@ -26,6 +26,7 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
+  console.log('searchParams', searchParams);
   const search = searchParams.q ?? '';
   const result = await sql`
     SELECT id, description, lastVisit, nextVisit 
@@ -33,10 +34,14 @@ export default async function IndexPage({
     WHERE description ILIKE ${'%' + search + '%'};
   `;
   const appointments = result.rows as Appointment[];
-  const resultUsers = await sql`
-    SELECT id, email, name, username 
-    FROM users 
-    WHERE name ILIKE ${'%' + search + '%'};
+
+  const resultUsers = searchParams.q ? await sql`
+  SELECT id, name, username, email 
+  FROM users 
+  WHERE name ILIKE ${'%' + search + '%'};
+  ` : await sql`
+  SELECT id, name, username, email 
+  FROM users;
   `;
   const users = resultUsers.rows as User[];
   console.log('users', users);
