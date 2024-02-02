@@ -6,6 +6,7 @@ interface DailyLog {
   description: string;
   lastVisit: Date;
   nextVisit: Date;
+  username: String;
 }
 
 export default async function DailyPage() {
