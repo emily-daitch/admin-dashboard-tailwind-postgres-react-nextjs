@@ -21,7 +21,7 @@ export default async function DailyPage() {
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <Title>Daily</Title>
       <Text>Daily task prompts, ordered.</Text>
-      {dailyLogs[0]?.description}
+      {dailyLogs[0]?.username}
     </main>
   );
 }
