@@ -6,9 +6,9 @@ export function middleware(request: NextRequest) {
   console.log('middleware currentUser2', currentUser);
  
   if (currentUser) {
-    return NextResponse.redirect(new URL('/dashboard', request.url))
+    return NextResponse.redirect(new URL('/playground', request.url))
   }
-  return NextResponse.redirect(new URL('/login', request.url))
+  return NextResponse.redirect(new URL('/', request.url))
 }
  
 export const config = {
