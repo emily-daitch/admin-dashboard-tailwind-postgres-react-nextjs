@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server'
  
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get('currentUser')?.value
+  console.log('middleware currentUser', currentUser);
  
   if (currentUser) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
@@ -11,5 +12,11 @@ export function middleware(request: NextRequest) {
 }
  
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: [{
+    source: '/((?!api|_next/static|_next/image|.*\\.png$).*)',
+    missing: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+      ],
+    }]
 }
