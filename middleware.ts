@@ -6,14 +6,15 @@ export function middleware(request: NextRequest) {
   console.log('middleware currentUser2', currentUser);
  
   if (currentUser) {
-    return NextResponse.redirect(new URL('/playground', request.url))
+    console.log('middleware pomodoro');
+    return NextResponse.redirect(new URL('/pomodoro', request.url))
   }
   return NextResponse.redirect(new URL('/playground', request.url))
 }
  
 export const config = {
   matcher: [{
-    source: '/((?!api|_next/static|_next/image|.*\\.png$).*)',
+    source: '/((?!playground|api|_next/static|_next/image|.*\\.png$).*)',
     missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
