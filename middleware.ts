@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   if (currentUser) {
     return NextResponse.redirect(new URL('/playground', request.url))
   }
-  return NextResponse.redirect(new URL('/', request.url))
+  return NextResponse.redirect(new URL('/playground', request.url))
 }
  
 export const config = {
