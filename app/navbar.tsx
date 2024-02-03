@@ -11,6 +11,7 @@ const navigation = [
   { name: 'Dashboard', href: '/' },
   { name: 'Playground', href: '/playground' },
   { name: 'Appointments', href: '/appointments' },
+  { name: 'Manage Users', href: '/users' },
   { name: 'Daily Log', href: '/daily' },
   { name: 'Pomodoro', href: '/pomodoro' },
 ];

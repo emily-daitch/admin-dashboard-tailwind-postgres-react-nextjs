@@ -2,7 +2,6 @@ import { sql } from '@vercel/postgres';
 import { Card, Title, Text } from '@tremor/react';
 import Search from '../search';
 import AppointmentTable from '../aptTable';
-import BasicEditingGrid from '../editGrid';
 import {
   GridRowId,
 } from '@mui/x-data-grid';
@@ -35,25 +34,14 @@ export default async function IndexPage({
   `;
   const appointments = result.rows as Appointment[];
 
-  const resultUsers = searchParams.q ? await sql`
-  SELECT id, name, username, email 
-  FROM users 
-  WHERE name ILIKE ${'%' + search + '%'};
-  ` : await sql`
-  SELECT id, name, username, email 
-  FROM users;
-  `;
-  const users = resultUsers.rows as User[];
-  console.log('users', users);
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
-      <Title>Users</Title>
-      <Text>A list of users retrieved from a Postgres database.</Text>
+      <Title>Appointments</Title>
+      <Text>A list of appointments retrieved from a Postgres database.</Text>
       <Search />
-      {/* <Card className="mt-6">
+      <Card className="mt-6">
         <AppointmentTable appointments={appointments} />
-      </Card> */}
-      <BasicEditingGrid users={users}></BasicEditingGrid>
+      </Card>
     </main>
   );
 }
