@@ -3,13 +3,17 @@ import type { NextRequest } from 'next/server'
 import { auth } from './app/auth';
  
 export async function middleware(request: NextRequest) {
-  //const currentUser = request.cookies.get('currentUser')?.value
-  const session = await auth();
+  const currentUser = request.cookies.get('currentUser')?.value
+  if(!currentUser) {
+    const session = await auth();
+    if(session?.user?.email) request.cookies.set('currentUser', session.user.email);
+  }
   
-  console.log('middleware session', session);
+  //console.log('middleware session', session);
+  console.log('middleware currentUser', currentUser);
   console.log('request', request);
  
-  if (session) {
+  if (currentUser) {
     console.log('middleware pomodoro');
     return NextResponse.redirect(new URL('/pomodoro', request.url))
   }
