@@ -29,7 +29,7 @@ export default function Navbar({ user }: { user: any }) {
   const pathname = usePathname();
   console.log('user', user);
   let navigation = limitedNavigation;
-  if(user.email) {
+  if(user?.email) {
     navigation = fullNavigation;
   }
   return (
