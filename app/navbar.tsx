@@ -28,11 +28,9 @@ function classNames(...classes: string[]) {
 export default function Navbar({ user }: { user: any }) {
   const pathname = usePathname();
   console.log('user', user);
-  let navigation = {};
+  let navigation = limitedNavigation;
   if(user.email) {
     navigation = fullNavigation;
-  } else {
-    navigation = limitedNavigation;
   }
   return (
     <Disclosure as="nav" className="bg-white shadow-sm">
