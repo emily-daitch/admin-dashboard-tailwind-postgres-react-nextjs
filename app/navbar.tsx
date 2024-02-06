@@ -7,13 +7,18 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
-const navigation = [
+const fullNavigation = [
   { name: 'Dashboard', href: '/' },
   { name: 'Playground', href: '/playground' },
   { name: 'Appointments', href: '/appointments' },
   { name: 'Manage Users', href: '/users' },
   { name: 'Daily Log', href: '/daily' },
   { name: 'Pomodoro', href: '/pomodoro' },
+];
+
+const limitedNavigation = [
+  { name: 'Dashboard', href: '/' },
+  { name: 'Playground', href: '/playground' },
 ];
 
 function classNames(...classes: string[]) {
@@ -23,7 +28,12 @@ function classNames(...classes: string[]) {
 export default function Navbar({ user }: { user: any }) {
   const pathname = usePathname();
   console.log('user', user);
-
+  let navigation = {};
+  if(user.email) {
+    navigation = fullNavigation;
+  } else {
+    navigation = limitedNavigation;
+  }
   return (
     <Disclosure as="nav" className="bg-white shadow-sm">
       {({ open }) => (

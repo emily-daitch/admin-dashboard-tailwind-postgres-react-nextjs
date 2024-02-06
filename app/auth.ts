@@ -12,6 +12,7 @@ export const {
     })
   ],
   pages: {
-    signIn: '/sign-in'
+    signIn: '/sign-in',
+    signOut: '/sign-out'
   }
 });
