@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
     console.log('middleware passthrough');
     return NextResponse.redirect(new URL(request.nextUrl.pathname, request.url))
   }
-  return NextResponse.redirect(new URL('/', request.url))
+  return NextResponse.redirect(new URL('/sign-in', request.url))
 }
  
 export const config = {
