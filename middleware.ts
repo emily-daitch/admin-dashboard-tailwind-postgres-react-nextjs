@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
  
 export const config = {
   matcher: [{
-    source: '/((?!api|playground|_next/static|_next/image|.*\\.png$).*)',
+    source: '/((?!api|playground|sign-in|_next/static|_next/image|.*\\.png$).*)',
     missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
