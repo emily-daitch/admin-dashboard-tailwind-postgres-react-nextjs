@@ -8,7 +8,10 @@ export default async function IndexPage({}: {}) {
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <Title>Sign In</Title>
       <button onClick={() => signIn('github')}>
-        Sign in
+        Sign in with Github
+      </button>
+      <button onClick={() => signIn('google')}>
+        Sign in with Google
       </button>
     </main>
   );
