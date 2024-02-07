@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextRequest } from 'next/server'
 import { auth } from './app/auth';
  
 export async function middleware(request: NextRequest) {
@@ -14,6 +14,12 @@ export async function middleware(request: NextRequest) {
   console.log('middleware currentUser', currentUser);
   console.log('request', request);
  
+  if (request.nextUrl.pathname.includes("admin")) {
+    if(currentUser == 'edaitch@reibus.com') {
+        return NextResponse.next();
+    }
+    return NextResponse.redirect(new URL('/playground', request.url));
+  }
   if (currentUser) {
     console.log('middleware passthrough');
     return NextResponse.next();

@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { Title, Text } from '@tremor/react';
-import Search from '../search';
-import BasicEditingGrid from '../editGrid';
+import Search from '../../search';
+import BasicEditingGrid from '../../editGrid';
 import {
   GridRowId,
 } from '@mui/x-data-grid';

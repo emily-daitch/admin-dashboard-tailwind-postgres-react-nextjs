@@ -7,11 +7,19 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
-const fullNavigation = [
-  { name: 'Dashboard', href: '/' },
+const adminNavigation = [
+  { name: 'Home', href: '/' },
   { name: 'Playground', href: '/playground' },
   { name: 'Appointments', href: '/appointments' },
-  { name: 'Manage Users', href: '/users' },
+  { name: 'Manage Users', href: '/admin/users' },
+  { name: 'Daily Log', href: '/daily' },
+  { name: 'Pomodoro', href: '/pomodoro' },
+];
+
+const fullNavigation = [
+  { name: 'Home', href: '/' },
+  { name: 'Playground', href: '/playground' },
+  { name: 'Appointments', href: '/appointments' },
   { name: 'Daily Log', href: '/daily' },
   { name: 'Pomodoro', href: '/pomodoro' },
 ];
@@ -31,6 +39,9 @@ export default function Navbar({ user }: { user: any }) {
   let navigation = limitedNavigation;
   if(user?.email) {
     navigation = fullNavigation;
+  }
+  if(user?.email == "edaitch@reibus.com") {
+    navigation = adminNavigation;
   }
   return (
     <Disclosure as="nav" className="bg-white shadow-sm">
