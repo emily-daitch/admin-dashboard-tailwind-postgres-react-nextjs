@@ -12,7 +12,7 @@ export const {
       clientSecret: process.env.OAUTH_CLIENT_SECRET as string
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientId: process.env.GOOGLE_CLIENT_KEY as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     })
   ],
