@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
  
   if (currentUser) {
     console.log('middleware passthrough');
-    return NextResponse.redirect(new URL(request.nextUrl.pathname, request.url))
+    return NextResponse.next();
   }
   return NextResponse.redirect(new URL('/sign-in', request.url))
 }
