@@ -15,15 +15,15 @@ export async function middleware(request: NextRequest) {
   console.log('request', request);
  
   if (currentUser) {
-    console.log('middleware pomodoro');
+    console.log('middleware passthrough');
     return NextResponse.redirect(new URL(request.nextUrl.pathname, request.url))
   }
-  return NextResponse.redirect(new URL('/sign-in', request.url))
+  return NextResponse.redirect(new URL('/', request.url))
 }
  
 export const config = {
   matcher: [{
-    source: '/((?!playground||api|_next/static|_next/image|.*\\.png$).*)',
+    matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
     missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
