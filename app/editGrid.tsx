@@ -60,7 +60,7 @@ const useFakeMutation = () => {
     );
   };
 
-const useRealMutation = async function() {
+const useRealMutation = () => {
   return React.useCallback(
     (user: Partial<User>) =>
       new Promise<Partial<User>>(async (resolve, reject) => {
