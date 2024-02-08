@@ -39,7 +39,7 @@ export default async function RootLayout({
       console.log('creating new user');
       const userInsertResult = await sql`
       INSERT INTO users(name, email, username)
-      VALUES (${session.user.name}, ${session.user.email}, 'testusername');
+      VALUES (${session.user.name}, ${session.user.email}, 'testusername2');
       `;
       const newUser = userInsertResult.rows as User[];
       console.log('new user', newUser);
