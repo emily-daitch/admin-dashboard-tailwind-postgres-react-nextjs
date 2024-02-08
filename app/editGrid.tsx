@@ -59,10 +59,10 @@ const useFakeMutation = () => {
       [],
     );
   };
-// this should be on the server.....
+
 const useRealMutation = () => {
   return React.useCallback(
-    (user: User) =>
+    (user: Partial<User>) =>
       new Promise<Partial<User>>(async (resolve, reject) => {
         if(user.name?.trim() === '' || user.username?.trim() === '') {
           reject(new Error("Error while saving user: name can't be empty."));

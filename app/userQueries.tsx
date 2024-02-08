@@ -7,7 +7,7 @@ interface User {
     username: string;
   }
 
-let updateUser = async function(user: User) {
+let updateUser = async function(user: Partial<User>) {
     const result = await sql`UPDATE users SET name = ${user.name} 
     username = ${user.username} 
     WHERE email = ${user.email};`;
