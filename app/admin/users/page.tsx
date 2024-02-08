@@ -27,7 +27,7 @@ export default async function IndexPage({
 }) {
   console.log('searchParams', searchParams);
   const search = searchParams.q ?? '';
-
+  console.log('query', searchParams.q ? 'where' : 'no where');
   const resultUsers = searchParams.q ? await sql`
   SELECT id, name, username, email 
   FROM users 
@@ -37,6 +37,7 @@ export default async function IndexPage({
   FROM users;
   `;
   const users = resultUsers.rows as User[];
+  console.log('resultUsers', resultUsers);
   console.log('users', users);
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
