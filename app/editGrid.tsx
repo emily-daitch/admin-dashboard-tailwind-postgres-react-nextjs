@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react';
-import { updateUser } from './userQueries';
+//import { updateUser } from './api/users/userQueries';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -67,7 +67,12 @@ const useRealMutation = () => {
         if(user.name?.trim() === '' || user.username?.trim() === '') {
           reject(new Error("Error while saving user: name can't be empty."));
         }
-        const users = await updateUser(user);
+        //const users = await updateUser(user);
+        const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users', {
+          method: 'POST',
+          body: JSON.stringify(user)
+        });
+        const users = await usersResponse.json();
         if(!users[0]) {
           reject(new Error("Error updating row in database."));
         } else {
