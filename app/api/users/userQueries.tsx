@@ -3,6 +3,7 @@ import { sql } from '@vercel/postgres';
 
 type ResponseData = {
   message: string
+  body: string | undefined
 }
 
 interface User {
@@ -20,7 +21,7 @@ let updateUser = async function(user: Partial<User>) {
   return users;
 };
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
@@ -28,10 +29,15 @@ export default function handler(
     if(req.body) {
       const user = JSON.parse(req.body);
       console.log('post user', user);
-      updateUser(user);
+      let updatedUser = await updateUser(user);
+      res.status(200).json({
+        message: "User posted.",
+        body: JSON.stringify(updateUser);
+      })
     }
   } else {
     console.log('unsupported method from userQueries');
   }
-  res.status(200).json({ message: 'Hello from Next.js!' })
+  res.status(200).json({ message: 'Hello from Next.js!',
+body: "" })
 }
