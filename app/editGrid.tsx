@@ -1,5 +1,7 @@
 'use client'
 import * as React from 'react';
+import { sql } from '@vercel/postgres';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -58,6 +60,27 @@ const useFakeMutation = () => {
     );
   };
 
+const useRealMutation = async function() {
+  return React.useCallback(
+    (user: Partial<User>) =>
+      new Promise<Partial<User>>(async (resolve, reject) => {
+        if(user.name?.trim() === '' || user.username?.trim() === '') {
+          reject(new Error("Error while saving user: name can't be empty."));
+        }
+        const result = await sql`UPDATE users SET name = ${user.name} 
+                                                  username = ${user.username} 
+                                              WHERE email = ${user.email};`;
+        const users = result.rows as User[];
+        if(!users[0]) {
+          reject(new Error("Error updating row in database."));
+        } else {
+          resolve({ ...users[0]})
+        }
+      }),
+    [],
+  );
+};
+
 interface EditToolbarProps {
   setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
   setRowModesModel: (
@@ -96,7 +119,7 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
         setRows(initialRows);
       }, [initialRows]);
 
-    const mutateRow = useFakeMutation();
+    const mutateRow = useRealMutation();
 
     const [snackbar, setSnackbar] = React.useState<Pick<
       AlertProps,

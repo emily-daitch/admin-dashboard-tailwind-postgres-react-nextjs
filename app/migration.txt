@@ -45,6 +45,8 @@ VALUES (0, 'Task', 'Task Description', 'edaitch');
 INSERT INTO dailylog(taskid, title, description, username)
 VALUES ('346328-3247832...', 'Task', 'Task Description', 'edaitch');
 
+UPDATE users SET name = ${user.name} username = ${user.username} WHERE email = ${user.email};
+
 //notes
 When you fail to insert a record (let's say you entered a duplicate for a unique required field) the id (sequence)
 updates anyways, so you will have a gap in assigned id's
