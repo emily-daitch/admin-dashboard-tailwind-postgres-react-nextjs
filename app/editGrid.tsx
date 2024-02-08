@@ -68,7 +68,7 @@ const useRealMutation = () => {
           reject(new Error("Error while saving user: name can't be empty."));
         }
         //const users = await updateUser(user);
-        const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users', {
+        const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/app/api/users', {
           method: 'POST',
           body: JSON.stringify(user)
         });
