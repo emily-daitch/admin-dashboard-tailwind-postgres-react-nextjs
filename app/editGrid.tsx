@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react';
-import { sql } from '@vercel/postgres';
+import { updateUser } from './userQueries';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -59,18 +59,15 @@ const useFakeMutation = () => {
       [],
     );
   };
-
+// this should be on the server.....
 const useRealMutation = () => {
   return React.useCallback(
-    (user: Partial<User>) =>
+    (user: User) =>
       new Promise<Partial<User>>(async (resolve, reject) => {
         if(user.name?.trim() === '' || user.username?.trim() === '') {
           reject(new Error("Error while saving user: name can't be empty."));
         }
-        const result = await sql`UPDATE users SET name = ${user.name} 
-                                                  username = ${user.username} 
-                                              WHERE email = ${user.email};`;
-        const users = result.rows as User[];
+        const users = await updateUser(user);
         if(!users[0]) {
           reject(new Error("Error updating row in database."));
         } else {
