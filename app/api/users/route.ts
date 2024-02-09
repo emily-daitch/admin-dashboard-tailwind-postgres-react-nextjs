@@ -13,9 +13,9 @@ interface User {
 }
  
 let updateUser = async function(user: Partial<User>) {
-  const result = await sql`UPDATE users SET name = ${user.name} 
+  const result = await sql`UPDATE users SET name = ${user.name},
   username = ${user.username} 
-  WHERE email = ${user.email};`;
+  WHERE email = ${user.email}`;
   const users = result.rows as User[];
   return users;
 };
