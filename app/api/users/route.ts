@@ -20,7 +20,7 @@ let updateUser = async function(user: Partial<User>) {
   return users;
 };
 
-export default async function POST(
+export async function POST(
   req: Request
 ) {
     if(req.body) {
