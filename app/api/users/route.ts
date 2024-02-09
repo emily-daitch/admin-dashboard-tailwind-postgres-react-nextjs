@@ -25,9 +25,8 @@ export async function POST(
 ) {
     if(req.body) {
       let parsedBody = await req.json();
-      //const user = JSON.parse(parsedBody.body);
       console.log('post user', parsedBody);
-      //let updatedUser = await updateUser(user);
-      return Response.json({parsedBody});
+      let updatedUser = await updateUser(parsedBody);
+      return Response.json({user: updateUser});
     }
 }

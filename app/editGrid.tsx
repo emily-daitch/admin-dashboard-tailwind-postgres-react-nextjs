@@ -65,7 +65,7 @@ const useRealMutation = () => {
     (user: Partial<User>) =>
       new Promise<Partial<User>>(async (resolve, reject) => {
         if(user.name?.trim() === '' || user.username?.trim() === '') {
-          reject(new Error("Error while saving user: name can't be empty."));
+          reject(new Error("Error while saving user: name/username can't be empty."));
         }
         //const users = await updateUser(user);
         const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users', {
@@ -73,10 +73,11 @@ const useRealMutation = () => {
           body: JSON.stringify(user)
         });
         const users = await usersResponse.json();
-        if(!users[0]) {
+        console.log('users', users);
+        if(!users) {
           reject(new Error("Error updating row in database."));
         } else {
-          resolve({ ...users[0]})
+          resolve({ ...users})
         }
       }),
     [],
