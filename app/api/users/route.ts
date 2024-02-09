@@ -20,6 +20,12 @@ let updateUser = async function(user: Partial<User>) {
   return users;
 };
 
+let getUsers = async function() {
+  const result = await sql`SELECT * FROM users`;
+  const users = result.rows as User[];
+  return users;
+};
+
 export async function POST(
   req: Request
 ) {
@@ -27,6 +33,13 @@ export async function POST(
       let parsedBody = await req.json();
       console.log('post user', parsedBody);
       let updatedUser = await updateUser(parsedBody);
-      return Response.json({user: updateUser});
+      return Response.json({user: updatedUser});
     }
+}
+
+export async function GET(
+  req: Request
+) {
+    let users = await getUsers();
+    return Response.json({users});
 }

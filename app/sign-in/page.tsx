@@ -9,7 +9,7 @@ export default async function IndexPage({}: {}) {
       <Title>Sign In</Title>
       <button onClick={() => signIn('github')}>
         Sign in with Github
-      </button>
+      </button><br></br>
       <button onClick={() => signIn('google')}>
         Sign in with Google
       </button>
