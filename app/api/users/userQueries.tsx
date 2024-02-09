@@ -32,7 +32,7 @@ export default async function handler(
       let updatedUser = await updateUser(user);
       res.status(200).json({
         message: "User posted.",
-        body: JSON.stringify(updateUser);
+        body: JSON.stringify(updateUser)
       })
     }
   } else {
