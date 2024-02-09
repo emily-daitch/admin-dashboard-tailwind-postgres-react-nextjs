@@ -33,7 +33,7 @@ export default async function IndexPage({
   FROM users 
   WHERE name ILIKE ${'%' + search + '%'};
   ` : await sql`
-  SELECT * 
+  SELECT *  
   FROM users;
   `;
   const users = resultUsers.rows as User[];
