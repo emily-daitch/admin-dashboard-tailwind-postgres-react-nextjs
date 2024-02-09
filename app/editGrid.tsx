@@ -115,10 +115,12 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
     const initialRows: GridRowsProp= users;
 
     const [rows, setRows] = React.useState<GridRowsProp>(initialRows);
+    console.log('rows', rows);
 
     React.useEffect(() => {
         setRows(initialRows);
       }, [initialRows]);
+    console.log('rows2', rows);
 
     const mutateRow = useRealMutation();
 
