@@ -41,5 +41,6 @@ export async function GET(
   req: Request
 ) {
     let users = await getUsers();
+    console.log('users from GET', users);
     return Response.json({users});
 }

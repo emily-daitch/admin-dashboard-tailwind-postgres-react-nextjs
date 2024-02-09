@@ -31,7 +31,7 @@ export default async function IndexPage({
         return new Promise<User[]>(async (resolve, reject) => {
           const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users');
           const users = await usersResponse.json();
-          console.log('users', users);
+          console.log('users from admin page', users);
           if(!users) {
             reject(new Error("Error getting users."));
           } else {
@@ -42,7 +42,7 @@ export default async function IndexPage({
   console.log('searchParams', searchParams);
 
   const users = await getUsers();
-  console.log('users', users);
+  console.log('awaited users from admin page', users);
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <Title>Manage Users</Title>
