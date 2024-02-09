@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { sql } from '@vercel/postgres';
 
 type ResponseData = {
@@ -21,23 +20,14 @@ let updateUser = async function(user: Partial<User>) {
   return users;
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+export default async function POST(
+  req: Request
 ) {
-  if(req.method === "POST") {
     if(req.body) {
-      const user = JSON.parse(req.body);
+      let parsedBody = await req.json();
+      const user = JSON.parse(parsedBody.body);
       console.log('post user', user);
       let updatedUser = await updateUser(user);
-      res.status(200).json({
-        message: "User posted.",
-        body: JSON.stringify(updateUser)
-      })
+      return Response.json({updateUser});
     }
-  } else {
-    console.log('unsupported method from userQueries');
-  }
-  res.status(200).json({ message: 'Hello from Next.js!',
-body: "" })
 }
