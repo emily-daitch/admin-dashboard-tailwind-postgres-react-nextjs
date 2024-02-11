@@ -38,11 +38,11 @@ interface User {
 
 // use fake mutation example available in file history
 
-const useRealMutation = (user: GridValidRowModel) => {
-  console.log('user from useRealMutation', user);
+const useRealMutation = () => {
   return React.useCallback(
     (user: Partial<User>) =>
       new Promise<Partial<User>>(async (resolve, reject) => {
+        console.log('user from useRealMutation', user);
         if(user.name?.trim() === '' || user.username?.trim() === '') {
           reject(new Error("Error while saving user: name/username can't be empty."));
         }
@@ -105,7 +105,7 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
       }, [initialRows]);
     console.log('rows2', rows);
 
-    const mutateRow = useRealMutation;
+    const mutateRow = useRealMutation();
 
     const [snackbar, setSnackbar] = React.useState<Pick<
       AlertProps,
@@ -117,6 +117,7 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
     const processRowUpdate = React.useCallback(
       async (newRow: GridRowModel) => {
         // Make the HTTP request to save in the backend
+        console.log('newRow', newRow);
         const response = await mutateRow(newRow);
         setSnackbar({ children: 'User successfully saved', severity: 'success' });
         return response;
