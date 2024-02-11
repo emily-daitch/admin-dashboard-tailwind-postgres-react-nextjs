@@ -18,6 +18,8 @@ let updateUser = async function(user: Partial<User>) {
   username = ${user.username} 
   WHERE email = ${user.email}`;
   const users = result.rows as User[];
+  // should only return updated user, not bulk update... TODO
+  console.log('users from update user', users);
   return users;
 };
 

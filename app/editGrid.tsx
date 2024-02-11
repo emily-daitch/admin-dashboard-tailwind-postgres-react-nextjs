@@ -23,18 +23,11 @@ import {
   GridValidRowModel
 } from '@mui/x-data-grid';
 import {
-  randomCreatedDate,
-  randomTraderName,
   randomId,
-  randomArrayItem,
 } from '@mui/x-data-grid-generator';
 import Snackbar from '@mui/material/Snackbar';
 import Alert, { AlertProps } from '@mui/material/Alert';
 
-const roles = ['Market', 'Finance', 'Development'];
-const randomRole = () => {
-  return randomArrayItem(roles);
-};
 
 interface User {
     name: string;
@@ -43,21 +36,7 @@ interface User {
     username: string;
   }
 
-const useFakeMutation = () => {
-    return React.useCallback(
-      (user: Partial<User>) =>
-        new Promise<Partial<User>>((resolve, reject) => {
-          setTimeout(() => {
-            if (user.name?.trim() === '') {
-              reject(new Error("Error while saving user: name can't be empty."));
-            } else {
-              resolve({ ...user, name: user.name?.toUpperCase() });
-            }
-          }, 200);
-        }),
-      [],
-    );
-  };
+// use fake mutation example available in file history
 
 const useRealMutation = () => {
   return React.useCallback(
