@@ -31,9 +31,19 @@ export default async function IndexPage({
   searchParams: { q: string };
 }) {
 
-  const getUsers = async () => {
+  const getUsers = async (search: string) => {
+    let params: {[key: string]: string} = { // define params as an indexable type
+      "search": search,
+    };
+    
+    let query = Object.keys(params)
+                 .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                 .join('&');
+    
+    let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users?' + query;
+
         return new Promise<UserGroup>(async (resolve, reject) => {
-          const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users');
+          const usersResponse = await fetch(url);
           const users = await usersResponse.json();
           console.log('users from admin page', users);
           if(!users) {
@@ -47,21 +57,18 @@ export default async function IndexPage({
 
   ///
   const search = searchParams.q ?? '';
-  console.log('query', searchParams.q ? 'where' : 'no where');
-  const resultUsers = searchParams.q ? await sql`
-  SELECT id, name, username, email 
-  FROM users 
-  WHERE name ILIKE ${'%' + search + '%'};
-  ` : await sql`
-  SELECT *  
-  FROM users;
-  `;
-  const users = resultUsers.rows as User[];
-  console.log('resultUsers', resultUsers);
+  // const resultUsers = searchParams.q ? await sql`
+  // SELECT id, name, username, email 
+  // FROM users 
+  // WHERE name ILIKE ${'%' + search + '%'};
+  // ` : await sql`
+  // SELECT *  
+  // FROM users;
+  // `;
+  // const users = resultUsers.rows as User[];
   ///
 
-  const usersTest = await getUsers() as UserGroup;
-  console.log('awaited users from admin page', users);
+  const usersTest = await getUsers(search) as UserGroup;
   console.log('awaited usersTest(api) from admin page', usersTest);
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">

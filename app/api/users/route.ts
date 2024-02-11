@@ -40,6 +40,7 @@ export async function POST(
 export async function GET(
   req: Request
 ) {
+    console.log('request from users get', req);
     let users = await getUsers();
     console.log('users from GET', users);
     return Response.json({users});
