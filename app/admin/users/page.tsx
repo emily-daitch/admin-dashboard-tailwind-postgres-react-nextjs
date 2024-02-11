@@ -36,10 +36,16 @@ export default async function IndexPage({
     };
     
     let query = Object.keys(params)
-                 .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                 .map(k => 
+                  {
+                    console.log('encoded k', encodeURIComponent(k), 'param', encodeURIComponent(params[k]));
+                    console.log('k', k, 'p', params[k]);
+                    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
+                  })
                  .join('&');
     
     let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users?' + query;
+    console.log('URL', url);
 
         return new Promise<UserGroup>(async (resolve, reject) => {
           const usersResponse = await fetch(url);
