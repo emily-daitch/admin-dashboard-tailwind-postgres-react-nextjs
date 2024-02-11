@@ -38,7 +38,8 @@ interface User {
 
 // use fake mutation example available in file history
 
-const useRealMutation = () => {
+const useRealMutation = (user: GridValidRowModel) => {
+  console.log('user from useRealMutation', user);
   return React.useCallback(
     (user: Partial<User>) =>
       new Promise<Partial<User>>(async (resolve, reject) => {
@@ -104,7 +105,7 @@ export default function FullFeaturedCrudGrid({ users }: { users: User[] }) {
       }, [initialRows]);
     console.log('rows2', rows);
 
-    const mutateRow = useRealMutation();
+    const mutateRow = useRealMutation;
 
     const [snackbar, setSnackbar] = React.useState<Pick<
       AlertProps,
