@@ -56,8 +56,9 @@ export default async function IndexPage({
   console.log('resultUsers', resultUsers);
   ///
 
-  //const users = await getUsers();
+  const usersTest = await getUsers() as User[];
   console.log('awaited users from admin page', users);
+  console.log('awaited usersTest(api) from admin page', usersTest);
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <Title>Manage Users</Title>
@@ -66,7 +67,7 @@ export default async function IndexPage({
       {/* <Card className="mt-6">
         <AppointmentTable appointments={appointments} />
       </Card> */}
-      <BasicEditingGrid users={users}></BasicEditingGrid>
+      <BasicEditingGrid users={usersTest}></BasicEditingGrid>
     </main>
   );
 }
