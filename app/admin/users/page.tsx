@@ -21,6 +21,10 @@ interface User {
   username: string;
 }
 
+interface UserGroup {
+  users: User[]
+}
+
 export default async function IndexPage({
   searchParams
 }: {
@@ -28,7 +32,7 @@ export default async function IndexPage({
 }) {
 
   const getUsers = async () => {
-        return new Promise<User[]>(async (resolve, reject) => {
+        return new Promise<UserGroup>(async (resolve, reject) => {
           const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users');
           const users = await usersResponse.json();
           console.log('users from admin page', users);
@@ -56,7 +60,7 @@ export default async function IndexPage({
   console.log('resultUsers', resultUsers);
   ///
 
-  const usersTest = await getUsers() as User[];
+  const usersTest = await getUsers() as UserGroup;
   console.log('awaited users from admin page', users);
   console.log('awaited usersTest(api) from admin page', usersTest);
   return (
@@ -67,7 +71,7 @@ export default async function IndexPage({
       {/* <Card className="mt-6">
         <AppointmentTable appointments={appointments} />
       </Card> */}
-      <BasicEditingGrid users={usersTest}></BasicEditingGrid>
+      <BasicEditingGrid users={usersTest.users}></BasicEditingGrid>
     </main>
   );
 }
