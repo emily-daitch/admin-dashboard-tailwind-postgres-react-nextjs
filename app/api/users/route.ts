@@ -20,8 +20,11 @@ let updateUser = async function(user: Partial<User>) {
   return users;
 };
 
-let getUsers = async function() {
-  const result = await sql`SELECT * FROM users`;
+let getUsers = async function(search: string) {
+  const result = search === '' ? await sql`SELECT * FROM users` : await sql`
+  SELECT id, name, username, email 
+  FROM users 
+  WHERE name ILIKE ${'%' + search + '%'};`;
   const users = result.rows as User[];
   return users;
 };
@@ -41,7 +44,10 @@ export async function GET(
   req: Request
 ) {
     console.log('request from users get', req);
-    let users = await getUsers();
+    let parsedRequest = await req.json();
+    let search = parsedRequest.url.searchParams;
+    console.log('get search', search);
+    let users = await getUsers(search);
     console.log('users from GET', users);
     return Response.json({users});
 }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { sql } from '@vercel/postgres';
 import { Title, Text } from '@tremor/react';
 import Search from '../../search';
 import BasicEditingGrid from '../../editGrid';
@@ -54,19 +53,7 @@ export default async function IndexPage({
         })
   };
   console.log('searchParams', searchParams);
-
-  ///
   const search = searchParams.q ?? '';
-  // const resultUsers = searchParams.q ? await sql`
-  // SELECT id, name, username, email 
-  // FROM users 
-  // WHERE name ILIKE ${'%' + search + '%'};
-  // ` : await sql`
-  // SELECT *  
-  // FROM users;
-  // `;
-  // const users = resultUsers.rows as User[];
-  ///
 
   const usersTest = await getUsers(search) as UserGroup;
   console.log('awaited usersTest(api) from admin page', usersTest);
@@ -75,9 +62,6 @@ export default async function IndexPage({
       <Title>Manage Users</Title>
       <Text>CRUD interface for users</Text>
       <Search />
-      {/* <Card className="mt-6">
-        <AppointmentTable appointments={appointments} />
-      </Card> */}
       <BasicEditingGrid users={usersTest.users}></BasicEditingGrid>
     </main>
   );
