@@ -1,4 +1,5 @@
 import { sql } from '@vercel/postgres';
+import { NextRequest } from 'next/server'
 
 type ResponseData = {
   message: string
@@ -41,11 +42,11 @@ export async function POST(
 }
 
 export async function GET(
-  req: Request
+  req: NextRequest
 ) {
     console.log('request from users get', req);
-    let parsedRequest = await req.json();
-    let search = parsedRequest.url.searchParams;
+    //let parsedRequest = await req.json();
+    let search = req.nextUrl.searchParams.get('search') || '';
     console.log('get search', search);
     let users = await getUsers(search);
     console.log('users from GET', users);
