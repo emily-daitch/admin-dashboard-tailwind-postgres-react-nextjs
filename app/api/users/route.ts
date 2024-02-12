@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
 import { NextRequest } from 'next/server'
+import { unstable_noStore as noStore } from 'next/cache';
 
 type ResponseData = {
   message: string
@@ -49,6 +50,7 @@ export async function POST(
 export async function GET(
   req: NextRequest
 ) {
+    noStore();
     console.log('request from users get', req);
     //let parsedRequest = await req.json();
     let search = req.nextUrl.searchParams.get('search') || '';
