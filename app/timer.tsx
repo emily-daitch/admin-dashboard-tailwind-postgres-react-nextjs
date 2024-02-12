@@ -64,7 +64,11 @@ const Timer = () => {
         clearInterval(id.current)
     }
 
-    const renderTime = ({ remainingTime }) => {
+    interface TestRemainingTime {
+        remainingTime: number
+    }
+
+    const renderTime = ({ remainingTime }: TestRemainingTime) => {
         if (remainingTime === 0) {
           return <div className="timer">Too lale...</div>;
         }
