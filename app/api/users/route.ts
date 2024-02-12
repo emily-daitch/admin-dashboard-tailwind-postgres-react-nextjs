@@ -28,6 +28,7 @@ let updateUser = async function(user: Partial<User>) {
 };
 
 let getUsers = async function(search: string) {
+  noStore();
   const result = search === '' ? await sql`SELECT * FROM users` : await sql`
   SELECT id, name, username, email 
   FROM users 
