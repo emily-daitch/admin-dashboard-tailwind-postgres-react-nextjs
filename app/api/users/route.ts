@@ -17,7 +17,8 @@ let updateUser = async function(user: Partial<User>) {
   console.log('user to update from update user', user);
   const result = await sql`UPDATE users SET name = ${user.name},
   username = ${user.username} 
-  WHERE email = ${user.email}`;
+  WHERE email = ${user.email}
+  RETURNING *;`;
   const users = result.rows as User[];
   // should only return updated user, not bulk update... TODO
   console.log('result from update user', result);
