@@ -1,5 +1,6 @@
-import { Button, Card, Flex } from '@tremor/react'
+import { Button, Card } from '@tremor/react'
 import React, { useEffect, useRef, useState } from 'react'
+import { CountdownCircleTimer, useCountdown } from 'react-countdown-circle-timer'
 
 // TODO: Tremor is interesting for the dashboard, but lets choose a component library for general design..
 const Timer = () => {
@@ -7,6 +8,7 @@ const Timer = () => {
     const [seconds, setSeconds] = useState(0);
     const [sec, setSec] = useState(0);
     const [start, setStart] = useState(false);
+    const [key, setKey] = useState(0);
     const id = useRef<NodeJS.Timeout | undefined>(undefined)
     function decFun() {
         time - 5 < 0 ?
@@ -62,10 +64,23 @@ const Timer = () => {
         clearInterval(id.current)
     }
 
+    const renderTime = ({ remainingTime }) => {
+        if (remainingTime === 0) {
+          return <div className="timer">Too lale...</div>;
+        }
+      
+        return (
+          <div className="timer">
+            <div className="text">Remaining</div>
+            <div className="value">{remainingTime}</div>
+            <div className="text">seconds</div>
+          </div>
+        );
+      };
+
     return (
         <>
             <Card>
-                <Flex>
                     <Button
                         onClick={() => { setTime(1) }}
                     >
@@ -86,10 +101,8 @@ const Timer = () => {
                     >
                         45 min
                     </Button>
-                </Flex>
             </Card>
             <Card>
-                <Flex>
                     <Button
                         aria-label="Minus-Icon"
                         size="md"
@@ -98,9 +111,23 @@ const Timer = () => {
                     >
                         Subtract 5 Minutes
                     </Button>
+                    {'~t'}
                     {time < 10 ? '0' + time : time}
                     :
                     {seconds < 10 ? '0' + seconds : seconds}
+                    {'~t'}
+
+                    <CountdownCircleTimer
+                        key={key}
+                        isPlaying
+                        duration={10}
+                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                        colorsTime={[7, 5, 2, 0]}
+                        //onComplete={() => [true, 1000]}
+                    >
+                        {/* {({ remainingTime }) => remainingTime} */}
+                        {renderTime}
+                    </CountdownCircleTimer>
                     <Button
                         aria-label="Add-Icon"
                         size="md"
@@ -108,22 +135,22 @@ const Timer = () => {
                     >
                         Add 5 Minutes
                     </Button>
-                </Flex>
             </Card>
             <Card>
-                <Flex>
                     <Button
                         size="lg"
+                        color="amber"
                         onClick={() => { setStart(!start); }}
                     >
                         {start ? 'Stop' : 'Start'}
                     </Button>
                     <Button
                         size="lg"
+                        variant='secondary'
+                        onClick={() => { setKey(prevKey => prevKey + 1) }}
                     >
                         Clear
                     </Button>
-                </Flex>
             </Card>
         </>
     )
