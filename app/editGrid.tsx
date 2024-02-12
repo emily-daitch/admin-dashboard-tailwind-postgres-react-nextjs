@@ -55,7 +55,8 @@ const useRealMutation = () => {
         if(!users) {
           reject(new Error("Error updating row in database."));
         } else {
-          resolve({ ...users[0]})
+          console.log('resolving with', users[0]);
+          resolve(users[0])
         }
       }),
     [],
