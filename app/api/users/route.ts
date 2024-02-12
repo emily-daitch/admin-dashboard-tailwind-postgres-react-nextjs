@@ -1,6 +1,5 @@
 import { sql } from '@vercel/postgres';
 import { NextRequest } from 'next/server'
-import { unstable_noStore as noStore } from 'next/cache';
 
 type ResponseData = {
   message: string
@@ -28,7 +27,6 @@ let updateUser = async function(user: Partial<User>) {
 };
 
 let getUsers = async function(search: string) {
-  noStore();
   const result = search === '' ? await sql`SELECT * FROM users` : await sql`
   SELECT id, name, username, email 
   FROM users 
@@ -51,7 +49,6 @@ export async function POST(
 export async function GET(
   req: NextRequest
 ) {
-    noStore();
     console.log('request from users get', req);
     //let parsedRequest = await req.json();
     let search = req.nextUrl.searchParams.get('search') || '';
