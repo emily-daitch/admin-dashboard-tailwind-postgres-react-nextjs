@@ -5,6 +5,7 @@ import BasicEditingGrid from '../../editGrid';
 import {
   GridRowId,
 } from '@mui/x-data-grid';
+import { unstable_noStore as noStore } from 'next/cache';
 
 interface Appointment {
   id: number;
@@ -29,7 +30,7 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
-
+  noStore();
   const getUsers = async (search: string) => {
     let params: {[key: string]: string} = { // define params as an indexable type
       "search": search,
