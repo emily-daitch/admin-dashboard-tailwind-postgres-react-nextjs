@@ -6,17 +6,7 @@ import {
   GridRowId,
 } from '@mui/x-data-grid';
 import { unstable_noStore as noStore } from 'next/cache';
-
-interface User {
-  name: string;
-  email: string;
-  id: GridRowId;
-  username: string;
-}
-
-interface UserGroup {
-  users: User[]
-}
+import { User, UserGroup } from '../../interfaces';
 
 export default async function IndexPage({
   searchParams

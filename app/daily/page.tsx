@@ -2,24 +2,7 @@ import { sql } from '@vercel/postgres';
 import { Title, Text } from '@tremor/react';
 import BasicEditingGrid from '../taskEditGrid';
 import { unstable_noStore as noStore } from 'next/cache';
-
-interface DailyLog {
-  id: number;
-  description: string;
-  username: string;
-  taskid: string;
-}
-
-interface DailyTask {
-    id: string;
-    description: string;
-    username: string;
-    taskorder: number;
-  }
-
-  interface TaskGroup {
-    tasks: DailyTask[]
-  }
+import { DailyTask, DailyLog, TaskGroup } from '../interfaces';
 
 export default async function DailyPage({
   searchParams

@@ -5,20 +5,7 @@ import AppointmentTable from '../aptTable';
 import {
   GridRowId,
 } from '@mui/x-data-grid';
-
-interface Appointment {
-  id: number;
-  description: string;
-  lastVisit: Date;
-  nextVisit: Date;
-}
-
-interface User {
-  name: string;
-  email: string;
-  id: GridRowId;
-  username: string;
-}
+import { Appointment } from '../interfaces';
 
 export default async function IndexPage({
   searchParams

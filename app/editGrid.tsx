@@ -27,14 +27,7 @@ import {
 } from '@mui/x-data-grid-generator';
 import Snackbar from '@mui/material/Snackbar';
 import Alert, { AlertProps } from '@mui/material/Alert';
-
-
-interface User {
-    name: string;
-    email: string;
-    id: GridRowId;
-    username: string;
-  }
+import { User } from './interfaces';
 
 // use fake mutation example available in file history
 // should change mutation back into something generic, we want to use this for any table

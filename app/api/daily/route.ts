@@ -1,17 +1,10 @@
 import { sql } from '@vercel/postgres';
 import { NextRequest } from 'next/server'
+import { DailyTask } from '../../interfaces';
 
 type ResponseData = {
   message: string
   body: string | undefined
-}
-
-interface DailyTask {
-  taskorder: string;
-  title: string;
-  description: string;
-  id: number | string;
-  username: string;
 }
 
 let getDailyTasks = async function(search: string) {

@@ -27,15 +27,7 @@ import {
 } from '@mui/x-data-grid-generator';
 import Snackbar from '@mui/material/Snackbar';
 import Alert, { AlertProps } from '@mui/material/Alert';
-
-
-interface DailyTask {
-  taskorder: string;
-  title: string;
-  description: string;
-  id: number | string;
-  username: string;
-}
+import { DailyTask } from './interfaces';
 
 // use fake mutation example available in file history
 // should change mutation back into something generic, we want to use this for any table
@@ -121,6 +113,7 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
         // Make the HTTP request to save in the backend
         console.log('newRow', newRow);
         const response = await mutateRow(newRow);
+        console.log('processRowUpdate tasks response', response);
         setSnackbar({ children: 'User successfully saved', severity: 'success' });
         return response;
       },

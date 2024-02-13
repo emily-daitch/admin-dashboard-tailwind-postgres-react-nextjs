@@ -7,13 +7,7 @@ import {
   TableCell,
   Text
 } from '@tremor/react';
-
-interface Appointment {
-  id: number;
-  description: string;
-  lastVisit: Date;
-  nextVisit: Date;
-}
+import { Appointment } from './interfaces';
 
 export default function AppointmentTable({ appointments }: { appointments: Appointment[] }) {
   console.log('appointments', appointments);

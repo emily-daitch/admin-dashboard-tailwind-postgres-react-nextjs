@@ -6,19 +6,13 @@ import Toast from './toast';
 import { Suspense } from 'react';
 import { auth } from './auth';
 import { sql } from '@vercel/postgres';
+import { User } from './interfaces';
 
 export const metadata = {
   title: 'Next.js App Router + NextAuth + Tailwind CSS',
   description:
     'A user admin dashboard configured with Next.js, Postgres, NextAuth, Tailwind CSS, TypeScript, ESLint, and Prettier.'
 };
-
-interface User {
-  id: string;
-  email: string;
-  username: string;
-  name: string;
-}
 
 export default async function RootLayout({
   children

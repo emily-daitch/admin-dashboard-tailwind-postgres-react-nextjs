@@ -1,16 +1,10 @@
 import { sql } from '@vercel/postgres';
-import { NextRequest } from 'next/server'
+import { NextRequest } from 'next/server';
+import { User } from '../../interfaces';
 
 type ResponseData = {
   message: string
   body: string | undefined
-}
-
-interface User {
-  name: string;
-  email: string;
-  id: number | string;
-  username: string;
 }
  
 let updateUser = async function(user: Partial<User>) {
