@@ -7,13 +7,6 @@ import {
 } from '@mui/x-data-grid';
 import { unstable_noStore as noStore } from 'next/cache';
 
-interface Appointment {
-  id: number;
-  description: string;
-  lastVisit: Date;
-  nextVisit: Date;
-}
-
 interface User {
   name: string;
   email: string;
@@ -69,7 +62,7 @@ export default async function IndexPage({
       <Title>Manage Users</Title>
       <Text>CRUD interface for users</Text>
       <Search />
-      <BasicEditingGrid users={usersTest.users}></BasicEditingGrid>
+      <BasicEditingGrid rowsProp={usersTest.users}></BasicEditingGrid>
     </main>
   );
 }

@@ -1,5 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { Title, Text } from '@tremor/react';
+import BasicEditingGrid from '../taskEditGrid';
+import { unstable_noStore as noStore } from 'next/cache';
 
 interface DailyLog {
   id: number;
@@ -15,39 +17,57 @@ interface DailyTask {
     taskorder: number;
   }
 
-export default async function DailyPage() {
-  const logResult = await sql`
-    SELECT id, taskid, done, username
-    FROM dailylog 
-    WHERE username ILIKE  'edaitch'
-    AND   day      =      now()::date
-    ORDER BY id DESC;
-  `;
-  const dailyLogs = logResult.rows as DailyLog[];
-
-  const taskResult = await sql`
-    SELECT id, username, taskorder, description
-    FROM dailytask
-    WHERE username ILIKE  'edaitch'
-    ORDER BY taskorder ASC;
-  `;
-  const dailyTasks = taskResult.rows as DailyTask[];
-
-  let dailyTaskNumber = 1;
-  let lastDoneTaskId = '';
-  console.log('dailylogs', dailyLogs);
-  if(dailyLogs.length == 0) {
-    console.log('daily logs empty');
-  } else {
-    lastDoneTaskId = dailyLogs[dailyLogs.length - 1].taskid;
+  interface TaskGroup {
+    tasks: DailyTask[]
   }
+
+export default async function DailyPage({
+  searchParams
+} : {
+  searchParams: { q: string };
+}) {
+
+  noStore();
+  const getTasks = async (search: string) => {
+    let params: {[key: string]: string} = { // define params as an indexable type
+      "search": search,
+    };
+    
+    let query = Object.keys(params)
+                 .map(k => 
+                  {
+                    console.log('encoded k', encodeURIComponent(k), 'param', encodeURIComponent(params[k]));
+                    console.log('k', k, 'p', params[k]);
+                    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
+                  })
+                 .join('&');
+    
+    let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/daily?' + query;
+    console.log('URL', url);
+
+        return new Promise<TaskGroup>(async (resolve, reject) => {
+          const usersResponse = await fetch(url);
+          const users = await usersResponse.json();
+          console.log('users from admin page', users);
+          if(!users) {
+            reject(new Error("Error getting users."));
+          } else {
+            resolve({ ...users})
+          }
+        })
+  };
+  console.log('searchParams', searchParams);
+  const search = searchParams.q ?? '';
+
+  const tasksTest = await getTasks(search) as TaskGroup;
+  console.log('awaited usersTest(api) from admin page', tasksTest);
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <Title>Daily</Title>
       <Text>Daily task prompts, ordered.</Text>
-      {dailyLogs.length != 0 ? dailyTasks[dailyTasks.findIndex((task) => task.id = lastDoneTaskId)].description
-                 : dailyTasks[dailyTasks.findIndex((task) => task.taskorder = dailyTaskNumber)].description}
+      <Text>Placeholder.</Text>
+      <BasicEditingGrid rowsProp={tasksTest.tasks}></BasicEditingGrid>
     </main>
   );
 }

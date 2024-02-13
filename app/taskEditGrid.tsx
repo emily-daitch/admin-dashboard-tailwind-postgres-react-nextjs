@@ -167,7 +167,7 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
   };
 
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', width: 180, editable: true },
+    { field: 'title', headerName: 'Title', width: 180, editable: true },
     {
       field: 'id',
       headerName: 'id',
@@ -178,19 +178,26 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
       editable: true,
     },
     {
+      field: 'taskorder',
+      headerName: 'Order',
+      type: 'string',
+      width: 180,
+      editable: true,
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+      type: 'string',
+      width: 180,
+      editable: true,
+    },
+    {
       field: 'username',
       headerName: 'Username',
       type: 'string',
       width: 180,
       editable: true,
     },
-    {
-        field: 'email',
-        headerName: 'Email',
-        type: 'string',
-        width: 180,
-        editable: true,
-      },
     {
       field: 'actions',
       type: 'actions',
