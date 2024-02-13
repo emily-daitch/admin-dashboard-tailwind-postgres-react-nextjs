@@ -266,6 +266,11 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         onProcessRowUpdateError={handleProcessRowUpdateError}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'taskorder', sort: 'asc' }],
+          },
+        }}
         slots={{
           toolbar: EditToolbar,
         }}
