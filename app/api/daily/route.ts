@@ -49,6 +49,6 @@ export async function POST(
       let parsedBody = await req.json();
       console.log('post task', parsedBody);
       let updatedTask = await updateDailyTasks(parsedBody);
-      return Response.json({user: updatedTask});
+      return Response.json({task: updatedTask});
     }
 }

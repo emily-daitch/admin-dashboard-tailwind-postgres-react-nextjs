@@ -39,11 +39,11 @@ const useRealMutation = () => {
         if(task.title?.trim() === '' || task.username?.trim() === '') {
           reject(new Error("Error while saving task: title/username can't be empty."));
         }
-        const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/daily', {
+        const tasksResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/daily', {
           method: 'POST',
           body: JSON.stringify(task)
         });
-        const tasks = await usersResponse.json();
+        const tasks = await tasksResponse.json();
         console.log('tasks', tasks);
         if(!tasks) {
           reject(new Error("Error updating row in database."));
