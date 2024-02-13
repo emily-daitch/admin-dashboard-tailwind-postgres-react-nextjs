@@ -29,34 +29,35 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert, { AlertProps } from '@mui/material/Alert';
 
 
-interface User {
-    name: string;
-    email: string;
-    id: GridRowId;
-    username: string;
-  }
+interface DailyTask {
+  taskorder: string;
+  title: string;
+  description: string;
+  id: number | string;
+  username: string;
+}
 
 // use fake mutation example available in file history
 // should change mutation back into something generic, we want to use this for any table
 const useRealMutation = () => {
   return React.useCallback(
-    (user: Partial<User>) =>
-      new Promise<Partial<User>>(async (resolve, reject) => {
-        console.log('user from useRealMutation', user);
-        if(user.name?.trim() === '' || user.username?.trim() === '') {
-          reject(new Error("Error while saving user: name/username can't be empty."));
+    (task: Partial<DailyTask>) =>
+      new Promise<Partial<DailyTask>>(async (resolve, reject) => {
+        console.log('task from useRealMutation', task);
+        if(task.title?.trim() === '' || task.username?.trim() === '') {
+          reject(new Error("Error while saving task: title/username can't be empty."));
         }
-        const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users', {
+        const usersResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/daily', {
           method: 'POST',
-          body: JSON.stringify(user)
+          body: JSON.stringify(task)
         });
-        const users = await usersResponse.json();
-        console.log('users', users);
-        if(!users) {
+        const tasks = await usersResponse.json();
+        console.log('tasks', tasks);
+        if(!tasks) {
           reject(new Error("Error updating row in database."));
         } else {
-          console.log('resolving with', users[0]);
-          resolve(users.user[0])
+          console.log('resolving with', tasks[0]);
+          resolve(tasks.task[0])
         }
       }),
     [],
