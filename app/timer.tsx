@@ -4,16 +4,17 @@ import { CountdownCircleTimer, useCountdown } from 'react-countdown-circle-timer
 
 // TODO: Tremor is interesting for the dashboard, but lets choose a component library for general design..
 const Timer = () => {
-    const [time, setTime] = useState(0);
+    const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [sec, setSec] = useState(0);
     const [start, setStart] = useState(false);
     const [key, setKey] = useState(0);
+    const [totalSeconds, setTotalSeconds] = useState(0);
     const id = useRef<NodeJS.Timeout | undefined>(undefined)
     function decFun() {
-        time - 5 < 0 ?
+        minutes - 5 < 0 ?
             alertOption()
-            : setTime(prevCount => prevCount - 5);
+            : setMinutes(prevCount => prevCount - 5);
     }
 
     function alertOption() {
@@ -21,7 +22,7 @@ const Timer = () => {
     }
 
     useEffect(() => {
-        document.title = `${time < 10 ? '0' + time : time} : ${seconds < 10 ? '0' + seconds : seconds - 1} - Pomodoro Timer`;
+        document.title = `${minutes < 10 ? '0' + minutes : minutes} : ${seconds < 10 ? '0' + seconds : seconds - 1} - Pomodoro Timer`;
     }, [sec])
 
 
@@ -44,14 +45,14 @@ const Timer = () => {
     }
     useEffect(() => {
         if (sec != 0 && start) {
-            if (seconds == 0 && time == 0) {
+            if (seconds == 0 && minutes == 0) {
                 alert("Timer is up!");
                 stopTimer();
                 setStart(false);
             }
             else if (seconds == 0) {
                 setSeconds(59);
-                setTime(time => time - 1);
+                setMinutes(minutes => minutes - 1);
             }
             else {
                 setSeconds(seconds => seconds - 1);
@@ -60,7 +61,8 @@ const Timer = () => {
     }, [sec])
 
     const stopTimer = () => {
-        setSeconds(0); setTime(0)
+        setSeconds(0); setMinutes(0)
+        setTotalSeconds(0);
         clearInterval(id.current)
     }
 
@@ -86,22 +88,22 @@ const Timer = () => {
         <>
             <Card>
                     <Button
-                        onClick={() => { setTime(1) }}
+                        onClick={() => { setMinutes(1) }}
                     >
                         1 min
                     </Button>
                     <Button
-                        onClick={() => { setTime(15) }}
+                        onClick={() => { setMinutes(15) }}
                     >
                         15 min
                     </Button>
                     <Button
-                        onClick={() => { setTime(25) }}
+                        onClick={() => { setMinutes(25) }}
                     >
                         25 min
                     </Button>
                     <Button
-                        onClick={() => { setTime(45) }}
+                        onClick={() => { setMinutes(45) }}
                     >
                         45 min
                     </Button>
@@ -115,16 +117,14 @@ const Timer = () => {
                     >
                         Subtract 5 Minutes
                     </Button>
-                    {'~t'}
-                    {time < 10 ? '0' + time : time}
+                    {minutes < 10 ? '0' + minutes : minutes}
                     :
                     {seconds < 10 ? '0' + seconds : seconds}
-                    {'~t'}
 
                     <CountdownCircleTimer
                         key={key}
                         isPlaying
-                        duration={10}
+                        duration={totalSeconds}
                         colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                         colorsTime={[7, 5, 2, 0]}
                         //onComplete={() => [true, 1000]}
@@ -135,7 +135,7 @@ const Timer = () => {
                     <Button
                         aria-label="Add-Icon"
                         size="md"
-                        onClick={() => { setTime(prevCount => prevCount + 5) }}
+                        onClick={() => { setMinutes(minutes => minutes + 5) }}
                     >
                         Add 5 Minutes
                     </Button>
