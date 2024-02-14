@@ -12,7 +12,7 @@ const adminNavigation = [
   { name: 'Playground', href: '/playground' },
   { name: 'Appointments', href: '/appointments' },
   { name: 'Manage Users', href: '/admin/users' },
-  { name: 'Daily Log', href: '/daily' },
+  { name: 'Directory', href: '/directory' },
   { name: 'Pomodoro', href: '/pomodoro' },
 ];
 
