@@ -8,13 +8,20 @@ export interface DailyTask {
 
 export interface DailyLog {
     id: number;
+    title: string;
     description: string;
+    day: Date;
+    done: boolean;
     username: string;
     taskid: string;
 }
 
 export interface TaskGroup {
     tasks: DailyTask[]
+}
+
+export interface LogGroup {
+    logs: DailyLog[]
 }
 
 export interface User {

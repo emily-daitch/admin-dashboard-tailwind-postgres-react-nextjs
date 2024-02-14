@@ -49,7 +49,6 @@ export default async function DailyPage({
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <Title>Daily Tasks</Title>
       <Text>Manage Daily Tasks</Text>
-      <Text>Placeholder.</Text>
       <BasicEditingGrid rowsProp={tasksTest.tasks}></BasicEditingGrid>
     </main>
   );
