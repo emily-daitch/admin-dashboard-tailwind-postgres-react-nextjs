@@ -41,3 +41,7 @@ export interface Appointment {
     lastVisit: Date;
     nextVisit: Date;
 }
+
+export interface AppointmentGroup {
+    appointments: Appointment[]
+}
