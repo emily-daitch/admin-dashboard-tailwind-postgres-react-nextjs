@@ -1,10 +1,11 @@
+'use client';
+
 import { Title, Text } from '@tremor/react';
 import styles from './styles.module.css';
 import { unstable_noStore as noStore } from 'next/cache';
 import { LogGroup, TaskGroup } from '../interfaces';
 import { Button } from '@mui/material';
 import { UpdateDisabledOutlined } from '@mui/icons-material';
-'use client';
 
 export default async function DailyPage({} : {}) {
 noStore();
