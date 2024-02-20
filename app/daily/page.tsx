@@ -25,7 +25,7 @@ const getTaskLogs = async () => {
       })
 };
 
-const logsTest = await getTaskLogs() as LogGroup;
+let logsTest = await getTaskLogs() as LogGroup;
 
 const getTasks = async (search: string) => {
   let params: {[key: string]: string} = { // define params as an indexable type
@@ -55,7 +55,7 @@ const getTasks = async (search: string) => {
         }
       })
 };
-const tasksTest = await getTasks('') as TaskGroup;
+let tasksTest = await getTasks('') as TaskGroup;
 
 console.log('awaited logsTest from daily page', logsTest);
   return (
@@ -65,7 +65,7 @@ console.log('awaited logsTest from daily page', logsTest);
       <Text>Placeholder.</Text>
       <Text>Number of logs: {logsTest.logs.length}</Text>
       <Text>Next Task: {tasksTest.tasks[logsTest.logs.length].title}</Text>
-      <Button
+      {logsTest.logs.length == tasksTest.tasks.length ? <Text>Tasks complete! :&#41;</Text> : <Button
       onClick={async () => {
         const dailyLogsResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs', {
           method: 'POST',
@@ -77,7 +77,8 @@ console.log('awaited logsTest from daily page', logsTest);
             taskid: tasksTest.tasks[logsTest.logs.length].id
           })
         });
-      }}>Complete Task</Button>
+        logsTest = await getTaskLogs() as LogGroup;
+      }}>Complete Task</Button>}
     </main>
   );
 }
