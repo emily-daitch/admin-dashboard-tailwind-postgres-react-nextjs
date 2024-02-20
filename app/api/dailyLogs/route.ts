@@ -19,9 +19,8 @@ let getDailyTaskLogs = async function(username: string) {
 };
 
 let updateDailyLogs = async function(log: Partial<DailyLog>) {
-  const result = await sql`INSERT INTO dailylog(day, title, done, username, description, taskid)
-                                          VALUES(${Date.now()},
-                                                 ${log.title},
+  const result = await sql`INSERT INTO dailylog(title, done, username, description, taskid)
+                                          VALUES(${log.title},
                                                  ${log.done},
                                                  ${log.username},
                                                  ${log.description},
