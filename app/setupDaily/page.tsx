@@ -1,8 +1,7 @@
-import { sql } from '@vercel/postgres';
 import { Title, Text } from '@tremor/react';
 import BasicEditingGrid from '../taskEditGrid';
 import { unstable_noStore as noStore } from 'next/cache';
-import { DailyTask, DailyLog, TaskGroup } from '../interfaces';
+import { TaskGroup } from '../interfaces';
 
 export default async function DailyPage({
   searchParams

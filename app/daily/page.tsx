@@ -1,7 +1,7 @@
 import { Title, Text } from '@tremor/react';
 import styles from './styles.module.css';
 import { unstable_noStore as noStore } from 'next/cache';
-import { LogGroup } from '../interfaces';
+import { LogGroup, TaskGroup } from '../interfaces';
 
 export default async function DailyPage({} : {}) {
 noStore();
@@ -22,6 +22,37 @@ const getTaskLogs = async () => {
 };
 
 const logsTest = await getTaskLogs() as LogGroup;
+
+const getTasks = async (search: string) => {
+  let params: {[key: string]: string} = { // define params as an indexable type
+    "search": search,
+  };
+  
+  let query = Object.keys(params)
+               .map(k => 
+                {
+                  console.log('encoded k', encodeURIComponent(k), 'param', encodeURIComponent(params[k]));
+                  console.log('k', k, 'p', params[k]);
+                  return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
+                })
+               .join('&');
+  
+  let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/daily?' + query;
+  console.log('URL', url);
+
+      return new Promise<TaskGroup>(async (resolve, reject) => {
+        const usersResponse = await fetch(url);
+        const users = await usersResponse.json();
+        console.log('users from admin page', users);
+        if(!users) {
+          reject(new Error("Error getting users."));
+        } else {
+          resolve({ ...users})
+        }
+      })
+};
+const tasksTest = await getTasks('') as TaskGroup;
+
 console.log('awaited logsTest from daily page', logsTest);
   return (
     <main className={styles.daily}>
@@ -29,6 +60,7 @@ console.log('awaited logsTest from daily page', logsTest);
       <Text>Daily task prompts, ordered.</Text>
       <Text>Placeholder.</Text>
       <Text>Number of logs: {logsTest.logs.length}</Text>
+      <Text>Next Task: {tasksTest.tasks[logsTest.logs.length].title}</Text>
     </main>
   );
 }
