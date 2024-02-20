@@ -8,10 +8,11 @@ type ResponseData = {
 }
 
 let getDailyTasks = async function(search: string) {
-  const result = search === '' ? await sql`SELECT * FROM dailytask` : await sql`
+  const result = search === '' ? await sql`SELECT * FROM dailytask ORDER BY taskorder ASC` : await sql`
   SELECT id, taskorder, title, description, username 
   FROM dailytask 
-  WHERE title ILIKE ${'%' + search + '%'};`;
+  WHERE title ILIKE ${'%' + search + '%'}
+  ORDER BY taskorder ASC;`;
   const tasks = result.rows as DailyTask[];
   return tasks;
 };
