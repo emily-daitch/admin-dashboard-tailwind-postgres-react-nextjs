@@ -18,6 +18,20 @@ let getDailyTaskLogs = async function(username: string) {
   return logs;
 };
 
+let updateDailyLogs = async function(log: Partial<DailyLog>) {
+  const result = await sql`INSERT INTO dailylog(day, title, done, username, description, taskid)
+                                          VALUES(${Date.now()},
+                                                 ${log.title},
+                                                 ${log.done},
+                                                 ${log.username},
+                                                 ${log.description},
+                                                 ${log.taskid})
+                                          RETURNING *;`;
+  const logs = result.rows as DailyLog[];
+
+  return logs;
+};
+
 let getUser = async function(email: string) {
   const result = await sql`
   SELECT username 
@@ -40,4 +54,15 @@ export async function GET(
     let logs = await getDailyTaskLogs(username);
     console.log('logs from GET', logs);
     return Response.json({logs});
+}
+
+export async function POST(
+  req: Request
+) {
+    if(req.body) {
+      let parsedBody = await req.json();
+      console.log('post log', parsedBody);
+      let updatedLog = await updateDailyLogs(parsedBody);
+      return Response.json({log: updatedLog});
+    }
 }
