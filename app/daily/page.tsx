@@ -52,6 +52,8 @@ import TaskFinisher from './taskFinisher';
 export default async function DailyPage() {
   let logsTest = await getTaskLogs() as LogGroup;
   let tasksTest = await getTasks('') as TaskGroup;
+  console.log('logsTest', logsTest);
+  console.log('tasksTest', tasksTest);
 
   return (
     <main className={styles.daily}>

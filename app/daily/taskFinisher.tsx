@@ -39,8 +39,6 @@ export default async function TaskFinisher({tasksTest, logsTest} : {tasksTest: T
     if (!data) return <p>No profile data</p>
     return (
       <Card className="mt-8">
-        <Title>Performance</Title>
-        <Text>Comparison between Sales and Profit</Text>
         {logsTest.logs.length == tasksTest.tasks.length ? <Text>Tasks complete! :&#41;</Text> : <Button
       onClick={async () => {
         const dailyLogsResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs', {
