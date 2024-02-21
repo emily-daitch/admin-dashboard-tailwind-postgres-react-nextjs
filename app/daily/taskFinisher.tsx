@@ -2,10 +2,10 @@
 import { Title, Text, Card } from '@tremor/react';
 import { LogGroup, TaskGroup } from '../interfaces';
 import { Button } from '@mui/material';
-
+import { useState, useEffect } from 'react'
 // TODO useEffect
 
-const getTaskLogs = async () => {
+/*const getTaskLogs = async () => {
   
     let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs?';
   
@@ -19,10 +19,24 @@ const getTaskLogs = async () => {
             resolve({ ...logs})
           }
         })
-  };
+  };*/
 
 export default async function TaskFinisher({tasksTest, logsTest} : {tasksTest: TaskGroup, logsTest: LogGroup}) {
+    const [data, setData] = useState(null)
+    const [isLoading, setLoading] = useState(true)
+    let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs?';
 
+    useEffect(() => {
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data)
+          setLoading(false)
+        })
+    }, [])
+   
+    if (isLoading) return <p>Loading...</p>
+    if (!data) return <p>No profile data</p>
     return (
       <Card className="mt-8">
         <Title>Performance</Title>

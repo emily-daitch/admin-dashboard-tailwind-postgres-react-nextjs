@@ -1,12 +1,9 @@
 import { Title, Text } from '@tremor/react';
 import styles from './styles.module.css';
-import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 
 import { LogGroup, TaskGroup } from '../interfaces';
 import TaskFinisher from './taskFinisher';
 
-export const getServerSideProps = (async () => {
-  // Fetch data from external API
   const getTasks = async (search: string) => {
     let params: {[key: string]: string} = { // define params as an indexable type
       "search": search,
@@ -35,7 +32,6 @@ export const getServerSideProps = (async () => {
           }
         })
   };
-  let tasksTest = await getTasks('') as TaskGroup;
 
   const getTaskLogs = async () => {
   
@@ -52,15 +48,10 @@ export const getServerSideProps = (async () => {
           }
         })
   };
-  
-  let logsTest = await getTaskLogs() as LogGroup;
-  // Pass data to the page via props
-  return { props: { tasksTest, logsTest } }
-}) satisfies GetServerSideProps<{ tasksTest: TaskGroup, logsTest: LogGroup }>
 
-export default function DailyPage({
-  tasksTest, logsTest
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default async function DailyPage() {
+  let logsTest = await getTaskLogs() as LogGroup;
+  let tasksTest = await getTasks('') as TaskGroup;
 
   return (
     <main className={styles.daily}>
