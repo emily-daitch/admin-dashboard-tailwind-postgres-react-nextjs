@@ -5,12 +5,12 @@ import { Button } from '@mui/material';
 import { useState, useEffect } from 'react'
 // TODO useEffect
 
-/*const getTaskLogs = async () => {
+const getTaskLogs = async () => {
   
     let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs?';
   
         return new Promise<LogGroup>(async (resolve, reject) => {
-          const logsResponse = await fetch(url);
+          const logsResponse = await fetch(url, { cache: 'no-store' });
           const logs = await logsResponse.json();
           console.log('logs from daily page', logs);
           if(!logs) {
@@ -19,10 +19,10 @@ import { useState, useEffect } from 'react'
             resolve({ ...logs})
           }
         })
-  };*/
+  };
 
-export default async function TaskFinisher({tasksTest, logsTest} : {tasksTest: TaskGroup, logsTest: LogGroup}) {
-    const [data, setData] = useState(null)
+export default async function TaskFinisher({tasksTest} : {tasksTest: TaskGroup}) {
+    const [logsTest, setLogsTest] = useState<LogGroup | null>(null)
     const [isLoading, setLoading] = useState(true)
     let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs?';
 
@@ -30,15 +30,17 @@ export default async function TaskFinisher({tasksTest, logsTest} : {tasksTest: T
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          setData(data)
+          setLogsTest(data)
           setLoading(false)
         })
     }, [])
    
     if (isLoading) return <p>Loading...</p>
-    if (!data) return <p>No profile data</p>
+    if (!logsTest) return <p>No log data</p>
     return (
       <Card className="mt-8">
+        <Text>Number of logs: {logsTest.logs.length}</Text>
+        <Text>Next Task: {tasksTest.tasks[logsTest.logs.length].title}</Text>
         {logsTest.logs.length == tasksTest.tasks.length ? <Text>Tasks complete! :&#41;</Text> : <Button
       onClick={async () => {
         const dailyLogsResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs', {
@@ -51,6 +53,9 @@ export default async function TaskFinisher({tasksTest, logsTest} : {tasksTest: T
             taskid: tasksTest.tasks[logsTest.logs.length].id
           })
         });
+        console.log('dailyLogsResponse', dailyLogsResponse);
+        const dailyLogsNew = await getTaskLogs();
+        setLogsTest(dailyLogsNew);
       }}>Complete Task</Button>}
       </Card>
     );

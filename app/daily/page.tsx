@@ -33,32 +33,10 @@ import TaskFinisher from './taskFinisher';
         })
   };
 
-  const getTaskLogs = async () => {
-  
-    let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs?';
-  
-        return new Promise<LogGroup>(async (resolve, reject) => {
-          const logsResponse = await fetch(url, { cache: 'no-store' });
-          const logs = await logsResponse.json();
-          console.log('logs from daily page', logs);
-          if(!logs) {
-            reject(new Error("Error getting users."));
-          } else {
-            resolve({ ...logs})
-          }
-        })
-  };
-
 export default async function DailyPage() {
-  let logsTest = await getTaskLogs() as LogGroup;
   let tasksTest = await getTasks('') as TaskGroup;
 
-  let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/dailyLogs?';
-  const logsResponse = await fetch(url, { cache: 'no-store' });
-
   // as an example, these logs happen at build time. this is a static page
-  console.log('logsTest', logsTest);
-  console.log('logsResponse', logsResponse);
   console.log('tasksTest', tasksTest);
 
   return (
@@ -66,9 +44,7 @@ export default async function DailyPage() {
       <Title>Daily</Title>
       <Text>Daily task prompts, ordered.</Text>
       <Text>Placeholder.</Text>
-      <Text>Number of logs: {logsTest.logs.length}</Text>
-      <Text>Next Task: {tasksTest.tasks[logsTest.logs.length].title}</Text>
-      <TaskFinisher logsTest={logsTest} tasksTest={tasksTest}></TaskFinisher>
+      <TaskFinisher tasksTest={tasksTest}></TaskFinisher>
     </main>
   );
 }
