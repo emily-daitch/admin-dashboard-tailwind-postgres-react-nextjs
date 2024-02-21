@@ -11,9 +11,8 @@ const adminNavigation = [
   { name: 'Home', href: '/' },
   { name: 'Playground', href: '/playground' },
   { name: 'Appointments', href: '/appointments' },
-  { name: 'Manage Users', href: '/admin/users' },
-  { name: 'Directory', href: '/directory' },
-  { name: 'Pomodoro', href: '/pomodoro' },
+  { name: 'Daily Log', href: '/daily' },
+  { name: 'Admin Directory', href: '/admin/directory' },
 ];
 
 const fullNavigation = [
@@ -21,7 +20,7 @@ const fullNavigation = [
   { name: 'Playground', href: '/playground' },
   { name: 'Appointments', href: '/appointments' },
   { name: 'Daily Log', href: '/daily' },
-  { name: 'Pomodoro', href: '/pomodoro' },
+  { name: 'Directory', href: '/directory' },
 ];
 
 const limitedNavigation = [
