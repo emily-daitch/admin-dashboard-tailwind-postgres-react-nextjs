@@ -9,7 +9,6 @@ import Image from 'next/image';
 
 const adminNavigation = [
   { name: 'Home', href: '/' },
-  { name: 'Playground', href: '/playground' },
   { name: 'Appointments', href: '/appointments' },
   { name: 'Daily Log', href: '/daily' },
   { name: 'Admin Directory', href: '/admin/directory' },
@@ -17,7 +16,6 @@ const adminNavigation = [
 
 const fullNavigation = [
   { name: 'Home', href: '/' },
-  { name: 'Playground', href: '/playground' },
   { name: 'Appointments', href: '/appointments' },
   { name: 'Daily Log', href: '/daily' },
   { name: 'Directory', href: '/directory' },
@@ -25,7 +23,7 @@ const fullNavigation = [
 
 const limitedNavigation = [
   { name: 'Dashboard', href: '/' },
-  { name: 'Playground', href: '/playground' },
+  { name: 'Demos', href: '/demosDirectory' },
 ];
 
 function classNames(...classes: string[]) {

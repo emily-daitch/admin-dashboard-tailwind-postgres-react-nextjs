@@ -1,6 +1,6 @@
 import { Title, } from '@tremor/react';
 
-export default function PlaygroundPage() {
+export default function AdminDirectory() {
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
@@ -15,8 +15,9 @@ export default function PlaygroundPage() {
       <a href='/admin/users'>Manage Users</a><br></br>
       <a href='/directory'>Standard Directory</a><br></br>
 
-      <Title>Tools</Title>
-      <a href='/pomodoro'>Pomodoro Timer</a>
+      <Title>Demos</Title>
+      <a href='/demos/pomodoro'>Pomodoro Timer</a><br></br>
+      <a href='/demos/webSocket'>Websocket Demo</a>
     </main>
   );
 }
