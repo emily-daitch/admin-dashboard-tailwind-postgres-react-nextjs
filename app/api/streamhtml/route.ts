@@ -1,8 +1,6 @@
-export const config = {
-    runtime: "edge",
-  };
+export const runtime = 'edge';
   
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
   
   export default async function handler() {
     const encoder = new TextEncoder();
