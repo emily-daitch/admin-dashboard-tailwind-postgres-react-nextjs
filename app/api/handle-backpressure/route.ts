@@ -7,7 +7,7 @@ async function* integers() {
     console.log(`yielding ${i}`);
     yield i++;
  
-    await sleep(10);
+    await sleep(1000);
   }
 }
 // Add a custom sleep function to create
@@ -46,7 +46,7 @@ async function backpressureDemo() {
     // Get the newest value added to the stream
     const { value } = await reader.read();
     console.log(`Stream value: ${value}`);
-    await sleep(1000);
+    await sleep(10);
   }
 }
  
