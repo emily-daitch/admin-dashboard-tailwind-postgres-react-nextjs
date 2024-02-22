@@ -2,7 +2,7 @@ export const runtime = 'edge';
   
   const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
   
-  export default async function handler() {
+  export async function GET() {
     const encoder = new TextEncoder();
   
     const readable = new ReadableStream({
