@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
     if(currentUser == 'edaitch@reibus.com') {
         return NextResponse.next();
     }
-    return NextResponse.redirect(new URL('/playground', request.url));
+    return NextResponse.redirect(new URL('/home', request.url));
   }
   if (currentUser) {
     console.log('middleware passthrough');
@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
  
 export const config = {
   matcher: [{
-    source: '/((?!api|playground|sign-in|_next/static|_next/image|.*\\.png$).*)',
+    source: '/((?!api|home|sign-in|_next/static|_next/image|.*\\.png$).*)',
     missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },

@@ -22,7 +22,7 @@ const fullNavigation = [
 ];
 
 const limitedNavigation = [
-  { name: 'Dashboard', href: '/' },
+  { name: 'Home', href: '/' },
   { name: 'Demos', href: '/demosDirectory' },
 ];
 
