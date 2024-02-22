@@ -14,6 +14,9 @@ export async function GET() {
       const text = 'Stream me!';
       // Queue the encoded content into the stream
       controller.enqueue(encoder.encode(text));
+      controller.enqueue(encoder.encode(text + 1));
+      controller.enqueue(encoder.encode(text + 2));
+      controller.enqueue(encoder.encode(text + 3));
       // Prevent more content from being
       // added to the stream
       controller.close();
