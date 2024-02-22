@@ -13,7 +13,7 @@ export default function Directory() {
 
       <Title>Demos</Title>
       <a href='/demos/pomodoro'>Pomodoro Timer</a><br></br>
-      <a href='/demos/webSocket'>Websocket Demo</a>
+      <a href='/demos/streaming'>Streaming Demo</a>
     </main>
   );
 }
