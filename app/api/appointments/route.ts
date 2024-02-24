@@ -18,8 +18,8 @@ let getAppointments = async function(search: string) {
 
 let updateAppointments = async function(appointment: Partial<Appointment>) {
   console.log('appointment to update from update appointment', appointment);
-  const result = await sql`UPDATE dailytask SET description = ${appointment.description}
-  WHERE id = ${appointment.id}
+  const result = await sql`UPDATE appointments SET description = ${appointment.description}
+  WHERE description = ${appointment.description}
   RETURNING *;`;
   const appointments = result.rows as Appointment[];
   // should only return updated task, not bulk update... TODO

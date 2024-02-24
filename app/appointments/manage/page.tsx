@@ -42,7 +42,7 @@ export default async function ManageAppointments({
   const search = searchParams.q ?? '';
 
   const appointmentsTest = await getAppointments(search) as AppointmentGroup;
-  console.log('awaited usersTest(api) from admin page', appointmentsTest);
+  console.log('awaited appointments from management page', appointmentsTest);
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
