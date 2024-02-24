@@ -162,6 +162,15 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
 
   const columns: GridColDef[] = [
     {
+        field: 'id',
+        headerName: 'id',
+        type: 'number',
+        width: 80,
+        align: 'left',
+        headerAlign: 'left',
+        editable: true,
+    },
+    {
       field: 'description',
       headerName: 'Description',
       type: 'string',

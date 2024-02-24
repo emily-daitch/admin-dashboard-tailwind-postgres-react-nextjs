@@ -9,18 +9,22 @@ type ResponseData = {
 
 let getAppointments = async function(search: string) {
   const result = search === '' ? await sql`SELECT * FROM appointments` : await sql`
-  SELECT id, taskorder, title, description, username 
+  SELECT id, description, lastVisit, nextVisit
   FROM appointments 
-  WHERE title ILIKE ${'%' + search + '%'};`;
+  WHERE description ILIKE ${'%' + search + '%'};`;
   const appointments = result.rows as Appointment[];
   return appointments;
 };
 
 let updateAppointments = async function(appointment: Partial<Appointment>) {
   console.log('appointment to update from update appointment', appointment);
-  const result = await sql`UPDATE appointments SET description = ${appointment.description}
-  WHERE description = ${appointment.description}
-  RETURNING *;`;
+  // const result = await sql`UPDATE appointments SET description = ${appointment.description}
+  // WHERE description = ${appointment.description}
+  // RETURNING *;`;
+  const result = await sql`INSERT INTO appointments (id, description, lastVisit, nextVisit)
+  VALUES (${appointment.id}, ${appointment.description}, ${appointment.lastVisit}, ${appointment.nextVisit})
+  ON CONFLICT (id)
+  DO NOTHING | DO UPDATE SET description = ${appointment.description}, lastVisit = ${appointment.lastVisit}, nextVisit = ${appointment.nextVisit};`;
   const appointments = result.rows as Appointment[];
   // should only return updated task, not bulk update... TODO
   console.log('result from update appointment', result);
