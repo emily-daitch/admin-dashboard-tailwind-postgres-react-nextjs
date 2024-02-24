@@ -9,7 +9,8 @@ export default function AdminDirectory() {
       <a href='/appointments'>Appointments</a><br></br>
 
       <Title>Tools</Title>
-      <a href='/setupDaily'>Manage Daily Log</a><br></br>
+      <a href='/daily/manage'>Manage Daily Log</a><br></br>
+      <a href='/appointments/manage'>Manage Appointments</a><br></br>
 
       <Title>Admin Tools</Title>
       <a href='/admin/users'>Manage Users</a><br></br>

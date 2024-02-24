@@ -7,7 +7,7 @@ import {
 import { Appointment, AppointmentGroup } from '../interfaces';
 import { unstable_noStore as noStore } from 'next/cache';
 
-export default async function IndexPage({
+export default async function Appointments({
   searchParams
 }: {
   searchParams: { q: string };

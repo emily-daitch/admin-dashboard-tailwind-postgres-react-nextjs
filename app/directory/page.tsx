@@ -9,7 +9,8 @@ export default function Directory() {
       <a href='/appointments'>Appointments</a><br></br>
 
       <Title>Tools</Title>
-      <a href='/setupDaily'>Manage Daily Log</a><br></br>
+      <a href='/daily/manage'>Manage Daily Log</a><br></br>
+      <a href='/appointments/manage'>Manage Appointments</a><br></br>
 
       <Title>Demos</Title>
       <a href='/demos/pomodoro'>Pomodoro Timer</a><br></br>

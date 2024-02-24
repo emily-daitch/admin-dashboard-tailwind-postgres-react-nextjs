@@ -1,9 +1,9 @@
 import { Title, Text } from '@tremor/react';
-import BasicEditingGrid from '../taskEditGrid';
+import BasicEditingGrid from '../../taskEditGrid';
 import { unstable_noStore as noStore } from 'next/cache';
-import { TaskGroup } from '../interfaces';
+import { TaskGroup } from '../../interfaces';
 
-export default async function DailyPage({
+export default async function ManageDaily({
   searchParams
 } : {
   searchParams: { q: string };
