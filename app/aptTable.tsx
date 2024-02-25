@@ -25,10 +25,10 @@ export default function AppointmentTable({ appointments }: { appointments: Appoi
           <TableRow key={appointment.id}>
             <TableCell>{appointment.description}</TableCell>
             <TableCell>
-              <Text>{appointment.lastVisit?.toDateString()}</Text>
+              <Text>{appointment.lastVisit}</Text>
             </TableCell>
             <TableCell>
-              <Text>{appointment.nextVisit?.toDateString()}</Text>
+              <Text>{appointment.nextVisit}</Text>
             </TableCell>
           </TableRow>
         ))}
