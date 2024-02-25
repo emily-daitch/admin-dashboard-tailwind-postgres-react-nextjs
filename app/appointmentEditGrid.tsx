@@ -48,7 +48,7 @@ const useRealMutation = () => {
         if(!appointments) {
           reject(new Error("Error updating row in database."));
         } else {
-          console.log('resolving with', appointments[0]);
+          console.log('resolving with', appointments.appointments[0]);
           resolve(appointments.appointments[0])
         }
       }),

@@ -52,6 +52,6 @@ export async function POST(
       let parsedBody = await req.json();
       console.log('post appointment', parsedBody);
       let updatedAppointment = await updateAppointments(parsedBody);
-      return Response.json({appointment: updatedAppointment});
+      return Response.json({appointments: updatedAppointment});
     }
 }
