@@ -38,8 +38,8 @@ export interface UserGroup {
 export interface Appointment {
     id: number;
     description: string;
-    lastVisit: Date;
-    nextVisit: Date;
+    lastVisit: string;
+    nextVisit: string;
 }
 
 export interface AppointmentGroup {

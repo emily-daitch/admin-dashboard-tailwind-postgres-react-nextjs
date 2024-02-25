@@ -22,9 +22,9 @@ let updateAppointments = async function(appointment: Partial<Appointment>) {
   // WHERE description = ${appointment.description}
   // RETURNING *;`;
   const result = await sql`INSERT INTO appointments (id, description, lastVisit, nextVisit)
-  VALUES (${appointment.id}, ${appointment.description}, ${appointment.lastVisit?.getTime() || null}, ${appointment.nextVisit?.getTime() || null})
+  VALUES (${appointment.id}, ${appointment.description}, ${appointment.lastVisit || null}, ${appointment.nextVisit || null})
   ON CONFLICT (id)
-  DO UPDATE SET description = ${appointment.description}, lastVisit = ${appointment.lastVisit?.getTime() || null}, nextVisit = ${appointment.nextVisit?.getTime() || null}
+  DO UPDATE SET description = ${appointment.description}, lastVisit = ${appointment.lastVisit || null}, nextVisit = ${appointment.nextVisit || null}
   RETURNING *;`;
   const appointments = result.rows as Appointment[];
   // should only return updated task, not bulk update... TODO
