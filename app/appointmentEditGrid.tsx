@@ -178,13 +178,13 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
       editable: true,
     },
     {
-        field: 'lastVisit',
+        field: 'lastvisit',
         headerName: 'Last Visit',
         type: 'date',
         width: 180,
         editable: true,
       },    {
-        field: 'nextVisit',
+        field: 'nextvisit',
         headerName: 'Next Visit',
         type: 'date',
         width: 180,
