@@ -181,12 +181,19 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
         field: 'lastvisit',
         headerName: 'Last Visit',
         type: 'date',
+        valueGetter: (params) => {
+          console.log('last visit valuegetter', params.value);
+          return new Date(params.value);
+        },
         width: 180,
         editable: true,
       },    {
         field: 'nextvisit',
         headerName: 'Next Visit',
         type: 'date',
+        valueGetter: (params) => {
+            return new Date(params.value);
+        },
         width: 180,
         editable: true,
       },
