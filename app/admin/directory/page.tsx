@@ -13,7 +13,7 @@ export default function AdminDirectory() {
       <a href='/appointments/manage'>Manage Appointments</a><br></br>
 
       <Title>Admin Tools</Title>
-      <a href='/admin/manage/users'>Manage Users</a><br></br>
+      <a href='/admin/users/manage'>Manage Users</a><br></br>
       <a href='/admin/users'>Users List</a><br></br>
       <a href='/directory'>Standard Directory</a><br></br>
 
