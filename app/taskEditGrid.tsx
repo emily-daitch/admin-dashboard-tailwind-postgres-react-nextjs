@@ -56,6 +56,28 @@ const useRealMutation = () => {
   );
 };
 
+const deleteRowMutation = () => {
+  return React.useCallback(
+    (id: Partial<string>) =>
+      new Promise<Partial<DailyTask>>(async (resolve, reject) => {
+        console.log('task from useRealMutation', id);
+        const tasksResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/daily', {
+          method: 'DELETE',
+          body: JSON.stringify(id)
+        });
+        const tasks = await tasksResponse.json();
+        console.log('tasks', tasks);
+        if(!tasks) {
+          reject(new Error("Error updating row in database."));
+        } else {
+          console.log('resolving with', tasks[0]);
+          resolve(tasks.task[0])
+        }
+      }),
+    [],
+  );
+};
+
 interface EditToolbarProps {
   setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
   setRowModesModel: (
@@ -100,6 +122,7 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
     console.log('rows2', rows);
 
     const mutateRow = useRealMutation();
+    const deleteRow = deleteRowMutation();
 
     const [snackbar, setSnackbar] = React.useState<Pick<
       AlertProps,
@@ -118,6 +141,18 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
         return response;
       },
       [mutateRow],
+    );
+
+    const processRowDelete = React.useCallback(
+      async (id: string) => {
+        // Make the HTTP request to save in the backend
+        console.log('row to delete', id);
+        const response = await deleteRow(id);
+        console.log('processRowDelete tasks response', response);
+        setSnackbar({ children: 'Task successfully deleted', severity: 'success' });
+        return response;
+      },
+      [deleteRow],
     );
   
     const handleProcessRowUpdateError = React.useCallback((error: Error) => {
@@ -141,7 +176,8 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
   };
 
   const handleDeleteClick = (id: GridRowId) => () => {
-        setRows(rows.filter((row) => row.id !== id));
+    processRowDelete(id);
+    setRows(rows.filter((row) => row.id !== id));
   };
 
   const handleCancelClick = (id: GridRowId) => () => {

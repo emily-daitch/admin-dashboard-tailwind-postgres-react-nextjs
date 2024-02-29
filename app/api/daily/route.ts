@@ -31,6 +31,16 @@ let updateDailyTasks = async function(task: Partial<DailyTask>) {
   return tasks;
 };
 
+let deleteDailyTask = async function(id: Partial<string>) {
+  console.log('task to delete from update task', id);
+  const result = await sql`DELETE dailytask WHERE id = ${id};`;
+  //const tasks = result.rows as DailyTask[];
+  // should only return updated task, not bulk update... TODO
+  console.log('result from update task', result);
+  //console.log('tasks from update task', tasks);
+  return;
+};
+
 export async function GET(
   req: NextRequest
 ) {
@@ -51,5 +61,16 @@ export async function POST(
       console.log('post task', parsedBody);
       let updatedTask = await updateDailyTasks(parsedBody);
       return Response.json({task: updatedTask});
+    }
+}
+
+export async function DELETE(
+  req: Request
+) {
+    if(req.body) {
+      let parsedBody = await req.json();
+      console.log('delete task id', parsedBody);
+      let deletedTask = await deleteDailyTask(parsedBody);
+      return Response.json({task: deletedTask});
     }
 }
