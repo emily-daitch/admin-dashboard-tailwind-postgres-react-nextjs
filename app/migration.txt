@@ -1,5 +1,5 @@
 CREATE TABLE appointments (
-    id serial primary key,
+    id uuid primary key default gen_random_uuid() unique not null,
     description varchar(255) not null,
     lastVisit timestamp default now(),
     nextVisit timestamp default now()
@@ -46,6 +46,8 @@ INSERT INTO dailylog(taskid, title, description, username)
 VALUES ('346328-3247832...', 'Task', 'Task Description', 'edaitch');
 
 UPDATE users SET name = ${user.name} username = ${user.username} WHERE email = ${user.email};
+
+DELETE FROM users WHERE name = 'nameToDelete';
 
 //notes
 When you fail to insert a record (let's say you entered a duplicate for a unique required field) the id (sequence)

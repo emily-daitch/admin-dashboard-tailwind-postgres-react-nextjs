@@ -168,7 +168,7 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
         width: 80,
         align: 'left',
         headerAlign: 'left',
-        editable: true,
+        editable: false,
     },
     {
       field: 'description',

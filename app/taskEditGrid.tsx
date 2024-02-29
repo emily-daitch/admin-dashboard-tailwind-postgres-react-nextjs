@@ -114,7 +114,7 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
         console.log('newRow', newRow);
         const response = await mutateRow(newRow);
         console.log('processRowUpdate tasks response', response);
-        setSnackbar({ children: 'User successfully saved', severity: 'success' });
+        setSnackbar({ children: 'Task successfully saved', severity: 'success' });
         return response;
       },
       [mutateRow],
@@ -169,7 +169,7 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
       width: 80,
       align: 'left',
       headerAlign: 'left',
-      editable: true,
+      editable: false,
     },
     {
       field: 'taskorder',
