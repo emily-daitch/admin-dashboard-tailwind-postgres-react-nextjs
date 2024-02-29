@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Title, Text } from '@tremor/react';
-import Search from '../../search';
-import BasicEditingGrid from '../../editGrid';
+import Search from '../../../search';
+import BasicEditingGrid from '../../../userEditGrid';
 import {
   GridRowId,
 } from '@mui/x-data-grid';
 import { unstable_noStore as noStore } from 'next/cache';
-import { User, UserGroup } from '../../interfaces';
+import { User, UserGroup } from '../../../interfaces';
 
 export default async function IndexPage({
   searchParams
