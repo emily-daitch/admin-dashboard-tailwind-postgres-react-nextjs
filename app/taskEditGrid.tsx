@@ -38,6 +38,7 @@ const useRealMutation = () => {
         console.log('task from useRealMutation', task);
         if(task.title?.trim() === '' || task.username?.trim() === '') {
           reject(new Error("Error while saving task: title/username can't be empty."));
+
         }
         const tasksResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/daily', {
           method: 'POST',
@@ -56,9 +57,9 @@ const useRealMutation = () => {
   );
 };
 
-const deleteRowMutation = () => {
+const useDeleteRowMutation = () => {
   return React.useCallback(
-    (id: Partial<string>) =>
+    (id: Partial<string | number>) =>
       new Promise<Partial<DailyTask>>(async (resolve, reject) => {
         console.log('task from useRealMutation', id);
         const tasksResponse = await fetch('https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/daily', {
@@ -122,7 +123,7 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
     console.log('rows2', rows);
 
     const mutateRow = useRealMutation();
-    const deleteRow = deleteRowMutation();
+    const deleteRow = useDeleteRowMutation();
 
     const [snackbar, setSnackbar] = React.useState<Pick<
       AlertProps,
@@ -144,7 +145,7 @@ export default function FullFeaturedCrudGrid({ rowsProp }: { rowsProp: GridRowsP
     );
 
     const processRowDelete = React.useCallback(
-      async (id: string) => {
+      async (id: string | number) => {
         // Make the HTTP request to save in the backend
         console.log('row to delete', id);
         const response = await deleteRow(id);
