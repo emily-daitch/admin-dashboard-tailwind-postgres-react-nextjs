@@ -1,37 +1,56 @@
+import * as React from 'react';
+import { Title, Text } from '@tremor/react';
+import UserTable from './users';
 import {
-  Table,
-  TableHead,
-  TableRow,
-  TableHeaderCell,
-  TableBody,
-  TableCell,
-  Text
-} from '@tremor/react';
-import { User } from '../../interfaces';
+  GridRowId,
+} from '@mui/x-data-grid';
+import { unstable_noStore as noStore } from 'next/cache';
+import { User, UserGroup } from '../../interfaces';
 
-export default function UsersTable({ users }: { users: User[] }) {
+export default async function IndexPage({
+  searchParams
+}: {
+  searchParams: { q: string };
+}) {
+  noStore();
+  const getUsers = async (search: string) => {
+    let params: {[key: string]: string} = { // define params as an indexable type
+      "search": search,
+    };
+    
+    let query = Object.keys(params)
+                 .map(k => 
+                  {
+                    console.log('encoded k', encodeURIComponent(k), 'param', encodeURIComponent(params[k]));
+                    console.log('k', k, 'p', params[k]);
+                    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k])
+                  })
+                 .join('&');
+    
+    let url = 'https://admin-dashboard-tailwind-postgres-react-nextjs-ruby-eta.vercel.app/api/users?' + query;
+    console.log('URL', url);
+
+        return new Promise<UserGroup>(async (resolve, reject) => {
+          const usersResponse = await fetch(url);
+          const users = await usersResponse.json();
+          console.log('users from admin page', users);
+          if(!users) {
+            reject(new Error("Error getting users."));
+          } else {
+            resolve({ ...users})
+          }
+        })
+  };
+  console.log('searchParams', searchParams);
+  const search = searchParams.q ?? '';
+
+  const usersTest = await getUsers(search) as UserGroup;
+  console.log('awaited usersTest(api) from admin page', usersTest);
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableHeaderCell>Name</TableHeaderCell>
-          <TableHeaderCell>Username</TableHeaderCell>
-          <TableHeaderCell>Email</TableHeaderCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {users.map((user) => (
-          <TableRow key={user.id}>
-            <TableCell>{user.name}</TableCell>
-            <TableCell>
-              <Text>{user.username}</Text>
-            </TableCell>
-            <TableCell>
-              <Text>{user.email}</Text>
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <main className="p-4 md:p-10 mx-auto max-w-7xl">
+      <Title>Manage Users</Title>
+      <Text>CRUD interface for users</Text>
+      <UserTable users={usersTest.users}></UserTable>
+    </main>
   );
 }
