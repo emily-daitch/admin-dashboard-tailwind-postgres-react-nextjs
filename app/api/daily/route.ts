@@ -19,8 +19,8 @@ let getDailyTasks = async function(search: string) {
 
 let updateDailyTasks = async function(task: Partial<DailyTask>) {
   console.log('task to update from update task', task);
-  const result = await sql`INSERT INTO dailytask(taskorder, title, description, id) 
-  VALUES(${task.taskorder}, ${task.title}, ${task.description}, ${task.id})
+  const result = await sql`INSERT INTO dailytask(taskorder, title, description, id, username) 
+  VALUES(${task.taskorder}, ${task.title}, ${task.description}, ${task.id}, ${task.username})
   ON CONFLICT(id)
   DO UPDATE SET taskorder = ${task.taskorder}, title = ${task.title}, description = ${task.description}
   RETURNING *;`;
