@@ -19,10 +19,10 @@ let getDailyTasks = async function(search: string) {
 
 let updateDailyTasks = async function(task: Partial<DailyTask>) {
   console.log('task to update from update task', task);
-  const result = await sql`UPDATE dailytask SET taskorder = ${task.taskorder},
-  title = ${task.title},
-  description = ${task.description}
-  WHERE id = ${task.id}
+  const result = await sql`INSERT INTO dailytask(taskorder, title, description) 
+  VALUES(${task.taskorder}, ${task.title}, ${task.description}, ${task.id})
+  ON CONFLICT(id)
+  DO UPDATE SET taskorder = ${task.taskorder}, title = ${task.title}, description = ${task.description}
   RETURNING *;`;
   const tasks = result.rows as DailyTask[];
   // should only return updated task, not bulk update... TODO
