@@ -33,7 +33,7 @@ let updateDailyTasks = async function(task: Partial<DailyTask>) {
 
 let deleteDailyTask = async function(id: Partial<string>) {
   console.log('task to delete from update task', id);
-  const result = await sql`DELETE dailytask WHERE id = ${id};`;
+  const result = await sql`DELETE FROM dailytask WHERE id = ${id};`;
   //const tasks = result.rows as DailyTask[];
   // should only return updated task, not bulk update... TODO
   console.log('result from update task', result);
